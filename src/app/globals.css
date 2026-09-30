@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+/*
+  Brand tokens derived from the Mihalovits logo (sky-blue arches on white,
+  thin serif wordmark) and the business card (deep navy panel).
+*/
+@theme {
+  --color-ink: #0e151b;
+  --color-ink-800: #16212b;
+  --color-ink-700: #1f2e3b;
+  --color-ink-600: #2c3d4d;
+
+  --color-sky: #4fb1ea;
+  --color-sky-deep: #2e8fd0;
+  --color-sky-soft: #e4f2fc;
+  --color-sky-mist: #f1f8fd;
+
+  --color-paper: #f6f8fa;
+  --color-paper-deep: #eceff3;
+  --color-line: #dbe2ea;
+  --color-muted: #5b6b7d;
+  --color-muted-soft: #8a98a8;
+
+  --font-display: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-sans), "Plus Jakarta Sans", ui-sans-serif, system-ui,
+    sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --radius-arch: 999px 999px 0 0;
+
+  --shadow-ambient: 0 30px 80px -30px rgb(14 21 27 / 0.25),
+    0 12px 30px -18px rgb(14 21 27 / 0.18);
+  --shadow-ambient-sm: 0 18px 40px -22px rgb(14 21 27 / 0.22);
+  --shadow-sky: 0 20px 50px -20px rgb(79 177 234 / 0.45);
+
+  --animate-float: float 9s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-marquee: marquee 38s linear infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -12px, 0);
+    }
+  }
+  @keyframes shimmer {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(200%);
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection {
+    background: rgb(79 177 234 / 0.25);
+  }
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-sky);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@utility arch {
+  border-radius: 999px 999px 0 0;
+}
+
+@utility arch-lg {
+  border-radius: 999px 999px 1.5rem 1.5rem;
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+@utility grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+@utility hairline {
+  border-color: rgb(14 21 27 / 0.08);
+}
+
+@utility hairline-light {
+  border-color: rgb(255 255 255 / 0.12);
+}
+
+/* Vertical rhythm lines echoing the logo's upright strokes */
+@utility bg-uprights {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgb(14 21 27 / 0.05) 0,
+    rgb(14 21 27 / 0.05) 1px,
+    transparent 1px,
+    transparent 96px
+  );
+}
+
+@utility bg-uprights-light {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgb(255 255 255 / 0.05) 0,
+    rgb(255 255 255 / 0.05) 1px,
+    transparent 1px,
+    transparent 96px
+  );
+}
+
+@utility mask-fade-x {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+}
+
+@utility mask-fade-b {
+  mask-image: linear-gradient(to bottom, black 55%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
