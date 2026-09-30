@@ -43,7 +43,20 @@ export default function ImprintPage() {
           </p>
 
           <h2>Tárhelyszolgáltató</h2>
-          <p>A tárhelyszolgáltató adatai a weboldal indulása előtt kerülnek kitöltésre.</p>
+          <p>
+            <strong className="text-ink">{legalPages.hosting.name}</strong>
+            <br />
+            Székhely: {legalPages.hosting.address}
+            <br />
+            E-mail: <a href={`mailto:${legalPages.hosting.email}`}>{legalPages.hosting.email}</a>
+            <br />
+            Telefon: {legalPages.hosting.phone}
+            <br />
+            Web:{" "}
+            <a href={legalPages.hosting.web} target="_blank" rel="noreferrer">
+              {legalPages.hosting.web.replace(/^https?:\/\//, "")}
+            </a>
+          </p>
 
           <h2>Felelősség</h2>
           <p>

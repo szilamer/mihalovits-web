@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "NEXT_PUBLIC_CONTACT_ENDPOINT=/api/contact next dev",
-    "build": "NEXT_PUBLIC_CONTACT_ENDPOINT=/contact.php next build",
-    "start": "next start",
-    "lint": "eslint"
+    "build": "NEXT_PUBLIC_CONTACT_ENDPOINT=/contact.php next build && node scripts/postbuild.mjs",
+    "lint": "eslint",
+    "test": "node --test tests/*.test.mjs",
+    "deploy": "bash scripts/deploy.sh"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

@@ -1,22 +1,25 @@
 import { NextResponse } from "next/server";
 import { validateContact, type ContactPayload } from "@/lib/contact-schema";
 
-/** Used only by `next dev`. Production static hosting uses /contact.php. */
+/**
+ * Used only by `next dev` (next.config.ts rewrites /contact.php here).
+ * Production is served by public/contact.php, which also enforces the signed
+ * time-trap token, rate limits and origin checks that this mock skips.
+ */
 export const dynamic = "force-static";
 
-/**
- * Contact form endpoint. Currently validates and acknowledges the request;
- * wire `deliver()` to an e-mail provider (e.g. Resend) or CRM before launch.
- */
 export async function POST(req: Request) {
-  let body: Partial<ContactPayload>;
+  let body: Partial<ContactPayload> & { action?: string };
   try {
-    body = (await req.json()) as Partial<ContactPayload>;
+    body = (await req.json()) as typeof body;
   } catch {
-    return NextResponse.json({ ok: false, error: "Hibás kérés." }, { status: 400 });
+    return NextResponse.json({ ok: false, code: "bad_request", error: "Hibás kérés." }, { status: 400 });
   }
 
-  // Honeypot: bots fill every field, humans never see this one.
+  if (body.action === "token") {
+    return NextResponse.json({ ok: true, token: `dev.${Date.now()}` });
+  }
+
   if (body.company) {
     return NextResponse.json({ ok: true });
   }
@@ -26,15 +29,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, errors }, { status: 422 });
   }
 
-  await deliver(body as ContactPayload);
+  console.info("[contact:dev] enquiry accepted (not sent)", { topic: body.topic, at: new Date().toISOString() });
   return NextResponse.json({ ok: true });
-}
-
-async function deliver(payload: ContactPayload) {
-  // Placeholder transport – replace with a real integration.
-  console.info("[contact] new enquiry", {
-    name: payload.name,
-    topic: payload.topic,
-    at: new Date().toISOString(),
-  });
 }

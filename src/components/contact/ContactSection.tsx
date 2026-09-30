@@ -1,5 +1,6 @@
 import { ArrowUpRight, Clock, EnvelopeSimple, MapPin, Phone } from "@phosphor-icons/react/dist/ssr";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { MapEmbed } from "@/components/contact/MapEmbed";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { contact, firm } from "@/content/site";
@@ -87,17 +88,7 @@ export function ContactSection({
             </li>
           </ul>
 
-          {showMap && (
-            <div className="mt-10 rounded-[1.75rem] bg-ink/5 p-1.5 ring-1 ring-ink/6">
-              <iframe
-                title="Az iroda helye a térképen"
-                src={`https://www.google.com/maps?q=${encodeURIComponent(firm.address.mapsQuery)}&output=embed&hl=hu`}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="h-72 w-full rounded-[calc(1.75rem-0.375rem)] grayscale-[35%] contrast-[1.05]"
-              />
-            </div>
-          )}
+          {showMap && <MapEmbed query={firm.address.mapsQuery} title="Az iroda helye a térképen" />}
         </Reveal>
 
         <Reveal className="lg:col-span-7" delay={0.1} amount={0.1}>

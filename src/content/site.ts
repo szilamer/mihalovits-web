@@ -38,7 +38,7 @@ export const firm = {
   tagline: "Gyakorlatias jogi megoldások vállalkozásoknak és magánszemélyeknek",
   description:
     "Budapesti ügyvédi praxis ingatlanjogi, társasági jogi, egészségügyi- és gyógyszerjogi, valamint adatvédelmi ügyekben. Jogi tanácsadás, okiratszerkesztés és képviselet magyar, angol és német nyelven.",
-  url: "https://mm.logframe.cc",
+  url: "https://mihalovits.eu",
   email: "info@mihalovits.eu",
   phone: "+36 30 219 5593",
   phoneHref: "tel:+36302195593",
@@ -426,9 +426,16 @@ export const contact = {
 export const legalPages = {
   privacy: {
     title: "Adatkezelési tájékoztató",
-    updated: "2026. szeptember 1.",
+    updated: "2026. szeptember 30.",
   },
   imprint: {
     title: "Impresszum",
+  },
+  hosting: {
+    name: "Websupport Magyarország Kft. (Magyar Hosting)",
+    address: "1119 Budapest, Fehérvári út 97–99.",
+    email: "info@mhosting.hu",
+    phone: "+36 1 700 2323",
+    web: "https://www.mhosting.hu",
   },
 };

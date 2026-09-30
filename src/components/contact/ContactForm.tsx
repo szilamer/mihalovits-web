@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, CheckCircle, WarningCircle } from "@phosphor-icons/react";
-import { contact } from "@/content/site";
+import { contact, firm } from "@/content/site";
+import { requestToken, submitContact, type FormToken } from "@/lib/contact-client";
 import {
   validateContact,
   type ContactErrors,
@@ -64,6 +65,19 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
   const [data, setData] = useState<ContactPayload>({ ...initial, topic: defaultTopic ?? "" });
   const [errors, setErrors] = useState<ContactErrors>({});
   const [status, setStatus] = useState<Status>("idle");
+  const [failure, setFailure] = useState<string | undefined>();
+  const token = useRef<Promise<FormToken> | null>(null);
+
+  // Requested on first interaction so the server-side time trap measures real typing time.
+  const getToken = (fresh = false) => {
+    if (fresh || !token.current) {
+      token.current = requestToken().catch((err: unknown) => {
+        token.current = null;
+        throw err;
+      });
+    }
+    return token.current;
+  };
 
   const update = <K extends keyof ContactPayload>(key: K, value: ContactPayload[K]) => {
     setData((d) => ({ ...d, [key]: value }));
@@ -80,20 +94,19 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
       return;
     }
     setStatus("submitting");
+    setFailure(undefined);
     try {
-      const res = await fetch(process.env.NEXT_PUBLIC_CONTACT_ENDPOINT ?? "/contact.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (res.status === 422) {
-        const json = (await res.json()) as { errors?: ContactErrors };
-        setErrors(json.errors ?? {});
+      const result = await submitContact(data, getToken);
+      if (result.kind === "sent") {
+        token.current = null;
+        setStatus("success");
+      } else if (result.kind === "invalid") {
+        setErrors(result.errors);
         setStatus("idle");
-        return;
+      } else {
+        setFailure(result.message);
+        setStatus("error");
       }
-      if (!res.ok) throw new Error("bad status");
-      setStatus("success");
     } catch {
       setStatus("error");
     }
@@ -142,6 +155,7 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.5, ease }}
               onSubmit={onSubmit}
+              onFocusCapture={() => void getToken().catch(() => undefined)}
               noValidate
               className="grid gap-5"
             >
@@ -151,6 +165,7 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
                     id="name"
                     name="name"
                     autoComplete="name"
+                    maxLength={120}
                     value={data.name}
                     onChange={(e) => update("name", e.target.value)}
                     aria-invalid={!!errors.name}
@@ -165,6 +180,7 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
                     name="email"
                     type="email"
                     autoComplete="email"
+                    maxLength={254}
                     value={data.email}
                     onChange={(e) => update("email", e.target.value)}
                     aria-invalid={!!errors.email}
@@ -182,6 +198,7 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
                     name="phone"
                     type="tel"
                     autoComplete="tel"
+                    maxLength={40}
                     value={data.phone}
                     onChange={(e) => update("phone", e.target.value)}
                     aria-invalid={!!errors.phone}
@@ -222,6 +239,7 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
                   id="message"
                   name="message"
                   rows={5}
+                  maxLength={4000}
                   value={data.message}
                   onChange={(e) => update("message", e.target.value)}
                   aria-invalid={!!errors.message}
@@ -273,9 +291,10 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
                 <div role="alert" className="flex items-start gap-3 rounded-2xl bg-[#fdf1ee] px-4 py-3 text-[13.5px] text-[#8f3423] ring-1 ring-[#b4432f]/20">
                   <WarningCircle size={18} weight="fill" className="mt-0.5 shrink-0" />
                   <p>
-                    Az üzenet küldése nem sikerült. Kérem, próbálja újra, vagy hívjon a{" "}
-                    <a href="tel:+36302195593" className="font-semibold underline underline-offset-2">
-                      +36 30 219 5593
+                    {failure ?? "Az üzenet küldése nem sikerült. Kérem, próbálja újra."} Sürgős ügyben
+                    hívjon a{" "}
+                    <a href={firm.phoneHref} className="font-semibold underline underline-offset-2">
+                      {firm.phone}
                     </a>{" "}
                     számon.
                   </p>
