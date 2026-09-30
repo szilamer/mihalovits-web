@@ -30,7 +30,9 @@ jobs:
           cache: npm
 
       - name: PHP for the endpoint tests
-        run: php -r 'exit(extension_loaded("curl") ? 0 : 1);' && php -v | head -1
+        run: |
+          php -r 'exit(extension_loaded("curl") ? 0 : 1);'
+          php -v | head -1
 
       - run: npm ci
       - run: npm run lint
