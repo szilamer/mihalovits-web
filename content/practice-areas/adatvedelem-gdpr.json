@@ -1,0 +1,67 @@
+{
+  "order": 4,
+  "title": "Adatvédelem, GDPR és compliance",
+  "shortTitle": "Adatvédelem",
+  "eyebrow": "Privacy & compliance",
+  "summary": "Adatkezelési dokumentáció, incidenskezelés, hatósági eljárások és belső auditok – korábbi Privacy & Compliance Officer tapasztalattal.",
+  "icon": "shield-check",
+  "contactTopic": "Adatvédelem, GDPR",
+  "intro": [
+    "Adatvédelmi tisztviselőként dolgoztam egy nemzetközi gyógyszeripari vállalatnál, ahol napi szinten kellett a GDPR elvárásait a valós üzleti folyamatokra fordítanom.",
+    "Ezt a szemléletet hozom az ügyfeleimhez is: nem sablonokat adok, hanem az adott vállalkozás működésére szabott, védhető megoldásokat."
+  ],
+  "services": [
+    {
+      "title": "Adatkezelési tájékoztató és szabályzat",
+      "description": "Weboldalak, alkalmazások, HR-folyamatok teljes dokumentációja."
+    },
+    {
+      "title": "Adatvédelmi hatásvizsgálat (DPIA)",
+      "description": "Magas kockázatú adatkezelések értékelése és dokumentálása."
+    },
+    {
+      "title": "Incidenskezelés",
+      "description": "72 órás bejelentési kötelezettség kezelése, hatósági kommunikáció."
+    },
+    {
+      "title": "Adatfeldolgozói szerződések",
+      "description": "DPA-k, nemzetközi adattovábbítás, standard szerződési klauzulák."
+    },
+    {
+      "title": "NAIH-eljárások",
+      "description": "Képviselet hatósági vizsgálatban, kérelmek és panaszok kezelése."
+    },
+    {
+      "title": "Kiszervezett DPO-szolgáltatás",
+      "description": "Adatvédelmi tisztviselői feladatok ellátása havidíjas keretben."
+    }
+  ],
+  "process": [
+    {
+      "step": "Adatleltár",
+      "detail": "Az adatkezelési folyamatok és jogalapok feltérképezése."
+    },
+    {
+      "step": "Kockázatértékelés",
+      "detail": "Hiányosságok rangsorolása és cselekvési terv."
+    },
+    {
+      "step": "Dokumentáció",
+      "detail": "Tájékoztatók, szabályzatok, szerződések elkészítése."
+    },
+    {
+      "step": "Oktatás",
+      "detail": "Munkavállalói tréning, éves felülvizsgálat."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Kötelező adatvédelmi tisztviselőt kijelölni?",
+      "a": "Csak meghatározott esetekben (pl. nagy léptékű különleges adatkezelés). Az első konzultáción ezt pontosan megvizsgáljuk."
+    },
+    {
+      "q": "Mennyi idő egy teljes GDPR-megfelelési projekt?",
+      "a": "Kisvállalkozásnál jellemzően 3–6 hét, nagyobb szervezetnél a folyamatok számától függően 2–4 hónap."
+    }
+  ]
+}

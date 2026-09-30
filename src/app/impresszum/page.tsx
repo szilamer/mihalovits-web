@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/layout/PageHero";
 import { Prose } from "@/components/layout/Prose";
-import { firm, legalPages } from "@/content/site";
+import { getFirm, getImprintPage, renderMarkdown } from "@/content";
 
-export const metadata: Metadata = {
-  title: legalPages.imprint.title,
-  robots: { index: false },
-};
+export function generateMetadata(): Metadata {
+  return { title: getImprintPage().title, robots: { index: false } };
+}
 
 export default function ImprintPage() {
+  const firm = getFirm();
+  const page = getImprintPage();
+  const { hosting } = page;
   return (
     <>
       <PageHero
         tone="light"
-        eyebrow="Jogi tájékoztató"
-        title={legalPages.imprint.title}
-        lead="Az elektronikus kereskedelmi szolgáltatásokról szóló 2001. évi CVIII. törvény és az ügyvédi tevékenységről szóló 2017. évi LXXVIII. törvény szerinti közzététel."
-        crumbs={[{ label: "Főoldal", href: "/" }, { label: legalPages.imprint.title }]}
+        eyebrow={page.eyebrow}
+        title={page.title}
+        lead={page.lead}
+        crumbs={[{ label: "Főoldal", href: "/" }, { label: page.title }]}
       />
       <section className="bg-paper pb-24">
         <Prose>
@@ -44,26 +46,21 @@ export default function ImprintPage() {
 
           <h2>Tárhelyszolgáltató</h2>
           <p>
-            <strong className="text-ink">{legalPages.hosting.name}</strong>
+            <strong className="text-ink">{hosting.name}</strong>
             <br />
-            Székhely: {legalPages.hosting.address}
+            Székhely: {hosting.address}
             <br />
-            E-mail: <a href={`mailto:${legalPages.hosting.email}`}>{legalPages.hosting.email}</a>
+            E-mail: <a href={`mailto:${hosting.email}`}>{hosting.email}</a>
             <br />
-            Telefon: {legalPages.hosting.phone}
+            Telefon: {hosting.phone}
             <br />
             Web:{" "}
-            <a href={legalPages.hosting.web} target="_blank" rel="noreferrer">
-              {legalPages.hosting.web.replace(/^https?:\/\//, "")}
+            <a href={hosting.web} target="_blank" rel="noreferrer">
+              {hosting.web.replace(/^https?:\/\//, "")}
             </a>
           </p>
 
-          <h2>Felelősség</h2>
-          <p>
-            A weboldalon közzétett tartalmak általános tájékoztatásra szolgálnak, nem minősülnek
-            jogi tanácsadásnak, és nem hoznak létre ügyvéd–ügyfél jogviszonyt. Konkrét ügyben
-            kérjen személyre szabott konzultációt.
-          </p>
+          <div dangerouslySetInnerHTML={{ __html: renderMarkdown(page.body) }} />
         </Prose>
       </section>
     </>

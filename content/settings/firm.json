@@ -1,0 +1,40 @@
+{
+  "name": "Dr. Mihalovits Máté",
+  "title": "ügyvéd",
+  "legalName": "Dr. Mihalovits Máté egyéni ügyvéd",
+  "brand": "mihalovits",
+  "tagline": "Gyakorlatias jogi megoldások vállalkozásoknak és magánszemélyeknek",
+  "description": "Budapesti ügyvédi praxis ingatlanjogi, társasági jogi, egészségügyi- és gyógyszerjogi, valamint adatvédelmi ügyekben. Jogi tanácsadás, okiratszerkesztés és képviselet magyar, angol és német nyelven.",
+  "email": "info@mihalovits.eu",
+  "phone": "+36 30 219 5593",
+  "address": {
+    "zip": "1064",
+    "city": "Budapest",
+    "street": "Podmaniczky utca 31., A épület, 3. emelet 18.",
+    "mapsQuery": "Podmaniczky utca 31, 1064 Budapest",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Dr.+Mihalovits+M%C3%A1t%C3%A9+%C3%BCgyv%C3%A9d+Podmaniczky+u.+31+1064+Budapest"
+  },
+  "hours": [
+    {
+      "days": "Hétfő – Péntek",
+      "time": "8:00 – 18:00"
+    },
+    {
+      "days": "Szombat – Vasárnap",
+      "time": "Előzetes egyeztetéssel"
+    }
+  ],
+  "languages": [
+    "magyar",
+    "angol",
+    "német"
+  ],
+  "chamber": "Budapesti Ügyvédi Kamara",
+  "chamberId": "KASZ 36-0XXXXX (minta)",
+  "googleProfileUrl": "https://www.google.com/maps/search/?api=1&query=Dr.+Mihalovits+M%C3%A1t%C3%A9+%C3%BCgyv%C3%A9d+Budapest",
+  "images": {
+    "portrait": "/uploads/portrait-tall.jpg",
+    "office": "/uploads/portrait.jpg",
+    "share": "/uploads/card.jpg"
+  }
+}

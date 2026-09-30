@@ -5,21 +5,23 @@ import { PageHero } from "@/components/layout/PageHero";
 import { AreaIcon } from "@/components/ui/AreaIcon";
 import { RevealChild, RevealGroup } from "@/components/ui/Reveal";
 import { ContactSection } from "@/components/contact/ContactSection";
-import { nicheHighlight, practiceAreas } from "@/content/site";
+import { getHome, getPracticeAreas, getPracticeAreasPage } from "@/content";
 
-export const metadata: Metadata = {
-  title: "Szakterületek",
-  description:
-    "Ingatlanjog, társasági jog, gyógyszer- és egészségügyi jog, adatvédelem, munkajog és polgári jog – jogi tanácsadás és képviselet Budapesten, magyar, angol és német nyelven.",
-};
+export function generateMetadata(): Metadata {
+  const page = getPracticeAreasPage();
+  return { title: page.seo.title, description: page.seo.description || page.lead };
+}
 
 export default function PracticeAreasPage() {
+  const page = getPracticeAreasPage();
+  const practiceAreas = getPracticeAreas();
+  const nicheHighlight = getHome().niche;
   return (
     <>
       <PageHero
-        eyebrow="Szakterületek"
-        title="Jogterületek, ahol napi gyakorlattal dolgozom"
-        lead="Minden területhez tartozik egy részletes oldal a konkrét szolgáltatásokkal, a folyamat lépéseivel és a leggyakoribb kérdésekre adott válaszokkal – hogy már az első hívás előtt tudja, mire számíthat."
+        eyebrow={page.eyebrow}
+        title={page.title}
+        lead={page.lead}
         crumbs={[{ label: "Főoldal", href: "/" }, { label: "Szakterületek" }]}
       />
 

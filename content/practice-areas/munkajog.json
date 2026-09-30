@@ -1,0 +1,63 @@
+{
+  "order": 5,
+  "title": "Munkajog",
+  "shortTitle": "Munkajog",
+  "eyebrow": "Munkáltatóknak és munkavállalóknak",
+  "summary": "Munkaszerződések, vezetői megállapodások, munkaviszony megszüntetése és munkaügyi perek – mindkét oldal szemszögének ismeretével.",
+  "icon": "users-three",
+  "contactTopic": "Munkajog",
+  "intro": [
+    "A munkajogi kérdések ritkán pusztán jogi kérdések: emberi és üzleti helyzetek, amelyeket diszkréten és határozottan kell kezelni.",
+    "Munkáltatói oldalon a kockázatmentes folyamatokat, munkavállalói oldalon a jogos igények hatékony érvényesítését helyezem középpontba."
+  ],
+  "services": [
+    {
+      "title": "Munkaszerződés és szabályzatok",
+      "description": "Munkaszerződések, versenytilalmi és titoktartási megállapodások, belső szabályzatok."
+    },
+    {
+      "title": "Vezetői megállapodások",
+      "description": "Vezető állású munkavállalók szerződései, bónusz- és részvényprogramok."
+    },
+    {
+      "title": "Munkaviszony megszüntetése",
+      "description": "Felmondás, közös megegyezés, csoportos létszámcsökkentés jogszerű lebonyolítása."
+    },
+    {
+      "title": "Munkaügyi perek",
+      "description": "Képviselet jogellenes megszüntetés, elmaradt munkabér és kártérítés ügyében."
+    },
+    {
+      "title": "Kiküldetés és külföldi munkavállalók",
+      "description": "Munkavállalási engedélyek, kiküldetési dokumentáció angol és német nyelven."
+    },
+    {
+      "title": "Munkahelyi adatkezelés",
+      "description": "Kamerás megfigyelés, e-mail ellenőrzés, whistleblowing rendszerek."
+    }
+  ],
+  "process": [
+    {
+      "step": "Helyzetfelmérés",
+      "detail": "A tényállás és a rendelkezésre álló dokumentumok áttekintése."
+    },
+    {
+      "step": "Stratégia",
+      "detail": "Egyezségi és peres alternatívák költség-haszon elemzése."
+    },
+    {
+      "step": "Végrehajtás",
+      "detail": "Dokumentumok elkészítése, tárgyalás, szükség esetén per."
+    },
+    {
+      "step": "Zárás",
+      "detail": "Megállapodás rögzítése, teljesítés ellenőrzése."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Mennyi időn belül lehet megtámadni a felmondást?",
+      "a": "A közléstől számított 30 napon belül kell benyújtani a keresetet – ezért fontos a gyors kapcsolatfelvétel."
+    }
+  ]
+}

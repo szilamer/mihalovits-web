@@ -1,7 +1,8 @@
-import { trustPoints } from "@/content/site";
+import { getHome } from "@/content";
 
 /** Continuous marquee of trust signals; duplicated list gives a seamless loop. */
 export function TrustBar() {
+  const { trustPoints } = getHome();
   const items = [...trustPoints, ...trustPoints];
   return (
     <div className="relative border-y border-ink/6 bg-white/60">

@@ -6,14 +6,18 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Phone } from "@phosphor-icons/react";
-import { firm, nav } from "@/content/site";
+import { nav } from "@/content/navigation";
 
 const ease = [0.32, 0.72, 0, 1] as const;
 
 /** Routes whose hero is light; every other route (incl. 404) opens on a navy hero. */
 const LIGHT_HERO_ROUTES = new Set(["/", "/kapcsolat", "/adatkezeles", "/impresszum"]);
 
-export function Header() {
+type HeaderProps = {
+  firm: { brand: string; phone: string; phoneHref: string; email: string };
+};
+
+export function Header({ firm }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();

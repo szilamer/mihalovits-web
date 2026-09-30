@@ -7,9 +7,12 @@ import {
   Phone,
 } from "@phosphor-icons/react/dist/ssr";
 import { Logo } from "@/components/ui/Logo";
-import { firm, nav, practiceAreas } from "@/content/site";
+import { getFirm, getPracticeAreas } from "@/content";
+import { nav } from "@/content/navigation";
 
 export function Footer() {
+  const firm = getFirm();
+  const practiceAreas = getPracticeAreas();
   const year = new Date().getFullYear();
   return (
     <footer className="relative overflow-hidden bg-ink text-white">

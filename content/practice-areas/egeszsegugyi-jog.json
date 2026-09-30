@@ -1,0 +1,67 @@
+{
+  "order": 3,
+  "title": "Gyógyszer- és egészségügyi jog",
+  "shortTitle": "Egészségügyi jog",
+  "eyebrow": "Life sciences",
+  "summary": "Gyógyszeripari és egészségügyi szolgáltatók szabályozási, reklám- és szerződéses kérdései – a Pfizernél és a GSK-nál szerzett belső tapasztalattal.",
+  "icon": "first-aid",
+  "contactTopic": "Egészségügyi / gyógyszerjog",
+  "intro": [
+    "A gyógyszer- és egészségügyi szektor az egyik legszigorúbban szabályozott terület, ahol egy rosszul megfogalmazott promóciós anyag vagy egy hiányos szerződés komoly hatósági következményekkel járhat.",
+    "Vezető gyógyszeripari vállalatoknál szerzett tapasztalatom alapján a napi működés nyelvén beszélek: a compliance-t nem akadálynak, hanem a piaci siker feltételének tekintem."
+  ],
+  "services": [
+    {
+      "title": "Gyógyszerpromóció és reklámjog",
+      "description": "Egészségügyi szakembereknek szóló anyagok, rendezvények, szponzoráció megfelelősége."
+    },
+    {
+      "title": "Klinikai vizsgálatok",
+      "description": "Vizsgálati szerződések, beleegyező nyilatkozatok, adatkezelési dokumentáció."
+    },
+    {
+      "title": "Egészségügyi szolgáltatók",
+      "description": "Magánrendelők, klinikák működési engedélye, betegjogi kérdések, panaszkezelés."
+    },
+    {
+      "title": "Orvostechnikai eszközök",
+      "description": "MDR-megfelelőség, forgalmazási szerződések, hatósági eljárások."
+    },
+    {
+      "title": "Beszerzési és disztribúciós szerződések",
+      "description": "Kórházi tenderek, nagykereskedelmi és forgalmazási megállapodások."
+    },
+    {
+      "title": "Hatósági eljárások",
+      "description": "Képviselet az NNGYK és egyéb felügyeleti szervek előtti eljárásokban."
+    }
+  ],
+  "process": [
+    {
+      "step": "Szabályozási térkép",
+      "detail": "Az adott termékre vagy szolgáltatásra irányadó előírások összegzése."
+    },
+    {
+      "step": "Gap-elemzés",
+      "detail": "A jelenlegi gyakorlat és a szabályozás közti eltérések azonosítása."
+    },
+    {
+      "step": "Megoldás",
+      "detail": "Szerződések, folyamatok, tréninganyagok kidolgozása."
+    },
+    {
+      "step": "Fenntartás",
+      "detail": "Jogszabályváltozások követése, rendszeres felülvizsgálat."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Kisebb magánrendelőnek is tud segíteni?",
+      "a": "Igen. Az egyszemélyes praxistól a több telephelyes klinikáig minden méretű szolgáltatóval dolgozom."
+    },
+    {
+      "q": "Angol nyelvű anyavállalati egyeztetésben részt vesz?",
+      "a": "Természetesen – a nemzetközi csoportokkal való napi együttműködés a korábbi munkáim természetes része volt."
+    }
+  ]
+}

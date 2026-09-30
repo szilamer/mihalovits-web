@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, CheckCircle, WarningCircle } from "@phosphor-icons/react";
-import { contact, firm } from "@/content/site";
 import { requestToken, submitContact, type FormToken } from "@/lib/contact-client";
 import {
   validateContact,
@@ -61,7 +60,15 @@ function Field({
   );
 }
 
-export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
+type ContactFormProps = {
+  topics: string[];
+  defaultTopic?: string;
+  phone: string;
+  phoneHref: string;
+  texts: { successTitle: string; successText: string; responseNote: string };
+};
+
+export function ContactForm({ topics, defaultTopic, phone, phoneHref, texts }: ContactFormProps) {
   const [data, setData] = useState<ContactPayload>({ ...initial, topic: defaultTopic ?? "" });
   const [errors, setErrors] = useState<ContactErrors>({});
   const [status, setStatus] = useState<Status>("idle");
@@ -130,11 +137,10 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
                 <CheckCircle size={26} weight="bold" />
               </span>
               <h3 className="mt-6 font-display text-3xl font-medium tracking-tight text-ink">
-                Köszönöm, megkaptam az üzenetét.
+                {texts.successTitle}
               </h3>
               <p className="mt-3 max-w-[46ch] text-[15px] leading-relaxed text-muted">
-                Munkanapokon 24 órán belül jelentkezem a megadott e-mail címen vagy
-                telefonszámon egy javasolt időponttal. Sürgős ügyben hívjon közvetlenül.
+                {texts.successText}
               </p>
               <button
                 type="button"
@@ -219,7 +225,7 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
                       className={`${fieldBase} ${invalid("topic")} appearance-none pr-10`}
                     >
                       <option value="">Válasszon témát…</option>
-                      {contact.topics.map((t) => (
+                      {topics.map((t) => (
                         <option key={t} value={t}>
                           {t}
                         </option>
@@ -293,8 +299,8 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
                   <p>
                     {failure ?? "Az üzenet küldése nem sikerült. Kérem, próbálja újra."} Sürgős ügyben
                     hívjon a{" "}
-                    <a href={firm.phoneHref} className="font-semibold underline underline-offset-2">
-                      {firm.phone}
+                    <a href={phoneHref} className="font-semibold underline underline-offset-2">
+                      {phone}
                     </a>{" "}
                     számon.
                   </p>
@@ -302,7 +308,7 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
               )}
 
               <div className="mt-2 flex flex-col-reverse items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-[12px] text-muted-soft">Válasz munkanapokon 24 órán belül.</p>
+                <p className="text-[12px] text-muted-soft">{texts.responseNote}</p>
                 <button
                   type="submit"
                   disabled={status === "submitting"}

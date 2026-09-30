@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
-import { firm } from "@/content/site";
+import { SITE_URL } from "@/content";
 
 export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: "*", allow: "/", disallow: ["/api/"] }],
-    sitemap: `${firm.url}/sitemap.xml`,
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/api/", "/admin/", "/oauth/"] }],
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

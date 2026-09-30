@@ -3,7 +3,7 @@ import { ContactForm } from "@/components/contact/ContactForm";
 import { MapEmbed } from "@/components/contact/MapEmbed";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
-import { contact, firm } from "@/content/site";
+import { getContactPage, getFirm } from "@/content";
 
 export function ContactSection({
   showMap = false,
@@ -15,6 +15,8 @@ export function ContactSection({
   headingLevel?: "h1" | "h2";
 }) {
   const Heading = headingLevel;
+  const firm = getFirm();
+  const contact = getContactPage();
   return (
     <section id="kapcsolat" className="relative overflow-hidden bg-paper py-24 lg:py-36">
       <div className="bg-uprights mask-fade-b absolute inset-0" aria-hidden />
@@ -92,7 +94,13 @@ export function ContactSection({
         </Reveal>
 
         <Reveal className="lg:col-span-7" delay={0.1} amount={0.1}>
-          <ContactForm defaultTopic={defaultTopic} />
+          <ContactForm
+            topics={contact.topics}
+            defaultTopic={defaultTopic && contact.topics.includes(defaultTopic) ? defaultTopic : undefined}
+            phone={firm.phone}
+            phoneHref={firm.phoneHref}
+            texts={contact.form}
+          />
         </Reveal>
       </div>
     </section>

@@ -1,0 +1,71 @@
+{
+  "order": 1,
+  "title": "Ingatlanjog és adásvétel",
+  "shortTitle": "Ingatlanjog",
+  "eyebrow": "Magánszemélyeknek és befektetőknek",
+  "summary": "Adásvételi, ajándékozási és bérleti szerződések gyors elkészítése, véleményezése és ellenjegyzése – rugalmas időpontokkal, akár online aláírással.",
+  "icon": "buildings",
+  "contactTopic": "Ingatlan adásvétel",
+  "intro": [
+    "Egy ingatlan megvásárlása a legtöbb család életében a legnagyobb pénzügyi döntés. A szerződés nem formalitás: ez az az okirat, amely a vevő tulajdonszerzését és a vételár biztonságát garantálja.",
+    "Az ügylet minden szakaszában végigkísérem az ügyfeleimet – a tulajdoni lap ellenőrzésétől a földhivatali bejegyzésig – úgy, hogy a folyamat gyors, kiszámítható és érthető legyen."
+  ],
+  "services": [
+    {
+      "title": "Adásvételi szerződés",
+      "description": "Szerződés elkészítése, véleményezése és ügyvédi ellenjegyzése 48 órán belül, földhivatali ügyintézéssel."
+    },
+    {
+      "title": "Ajándékozás, csere, haszonélvezet",
+      "description": "Családon belüli vagyonrendezés adó- és illetékoptimalizált szerkezetben."
+    },
+    {
+      "title": "Bérleti szerződések",
+      "description": "Lakás- és üzlethelyiség-bérlet közjegyzői okiratba foglalható, kiköltözési nyilatkozattal."
+    },
+    {
+      "title": "Társasházi ügyek",
+      "description": "Alapító okirat, SZMSZ módosítása, közgyűlési határozatok megtámadása."
+    },
+    {
+      "title": "Hitel és letét",
+      "description": "Banki hitellel finanszírozott ügyletek, ügyvédi letétkezelés, tehermentesítés."
+    },
+    {
+      "title": "Külföldi vevők",
+      "description": "Teljes körű angol és német nyelvű ügyintézés, tolmácsolás nélkül."
+    }
+  ],
+  "process": [
+    {
+      "step": "Ellenőrzés",
+      "detail": "Tulajdoni lap, terhek, építésügyi státusz és energetikai tanúsítvány áttekintése."
+    },
+    {
+      "step": "Szerződés",
+      "detail": "Tervezet 2 munkanapon belül, egyeztetés a felekkel és a bankkal."
+    },
+    {
+      "step": "Aláírás",
+      "detail": "Személyesen az irodában vagy azonosításra visszavezetett elektronikus aláírással."
+    },
+    {
+      "step": "Bejegyzés",
+      "detail": "Földhivatali benyújtás, tulajdonjog-bejegyzés nyomon követése, birtokbaadás."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Mennyi az ügyvédi munkadíj adásvételnél?",
+      "a": "A díj a vételár és az ügylet összetettsége alapján, előre rögzített összegben kerül meghatározásra. Az ajánlat az első egyeztetés után 24 órán belül elkészül."
+    },
+    {
+      "q": "Milyen gyorsan készül el a szerződés?",
+      "a": "A szükséges adatok megadása után jellemzően 2 munkanapon belül, sürgős esetben ennél gyorsabban."
+    },
+    {
+      "q": "Aláírhatunk online?",
+      "a": "Igen, azonosításra visszavezetett dokumentumhitelesítéssel (AVDH) vagy videós azonosítással is lehetséges az aláírás."
+    }
+  ]
+}

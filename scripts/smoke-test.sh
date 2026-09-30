@@ -90,6 +90,30 @@ expect_status "backup file" 403 "$(fetch bak "${auth[@]}" "$site/contact.php.bak
 expect_status "stray PHP" 403 "$(fetch php "${auth[@]}" "$site/info.php")"
 expect_status "ACME path without password" 404 "$(fetch acme "$site/.well-known/acme-challenge/smoke-test")"
 
+expect_status "/admin/" 200 "$(fetch admin "${auth[@]}" "$site/admin/")"
+expect_header admin content-security-policy "connect-src 'self' blob: data: https://api.github.com"
+expect_header admin content-security-policy "frame-ancestors 'none'"
+expect_header admin cross-origin-opener-policy "same-origin-allow-popups"
+expect_header admin x-robots-tag "noindex"
+expect_header admin cache-control "no-cache"
+cms_entry="$(grep -oE '/admin/cms/sveltia-cms-[A-Za-z0-9]+\.js' "$tmp/admin.b" | head -1)"
+if [[ -n "$cms_entry" ]]; then
+  expect_status "admin bundle" 200 "$(fetch cmsjs "${auth[@]}" "$site$cms_entry")"
+else
+  fail "admin page does not reference the CMS bundle"
+fi
+expect_status "/admin/config.yml" 200 "$(fetch cmsconfig "${auth[@]}" "$site/admin/config.yml")"
+expect_header cmsconfig cache-control "no-cache"
+grep -q '"auth_endpoint": "oauth/auth.php"' "$tmp/cmsconfig.b" && pass "admin config uses this site's sign-in" || fail "admin config is not the production one"
+
+expect_status "sign-in start" 302 "$(fetch oauth "$site/oauth/auth.php")"
+expect_header oauth location "https://github.com/login/oauth/authorize?client_id="
+expect_header oauth set-cookie "__Host-mihalovits_oauth="
+expect_status "sign-in callback without state" 400 "$(fetch oauthcb "$site/oauth/callback.php?code=x&state=y")"
+expect_header oauthcb content-security-policy "default-src 'none'"
+expect_header oauthcb cache-control "no-store"
+expect_status "sign-in helper not reachable" 403 "$(fetch oauthlib "$site/oauth/common.php")"
+
 expect_status "contact GET" 405 "$(fetch cget "$site/contact.php")"
 expect_header cget cache-control "no-store"
 expect_status "contact foreign origin" 403 "$(fetch corigin -X POST -H 'Content-Type: application/json' -H 'Origin: https://evil.example' --data '{"action":"token"}' "$site/contact.php")"

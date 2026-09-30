@@ -10,17 +10,17 @@ import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal, RevealChild, RevealGroup } from "@/components/ui/Reveal";
 import { ContactSection } from "@/components/contact/ContactSection";
-import { contact, firm, practiceAreas } from "@/content/site";
+import { getFirm, getPracticeArea, getPracticeAreas } from "@/content";
 
 type Params = { slug: string };
 
 export function generateStaticParams(): Params[] {
-  return practiceAreas.map((p) => ({ slug: p.slug }));
+  return getPracticeAreas().map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;
-  const area = practiceAreas.find((p) => p.slug === slug);
+  const area = getPracticeArea(slug);
   if (!area) return {};
   return {
     title: `${area.title} – ügyvéd Budapest`,
@@ -29,25 +29,13 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   };
 }
 
-// Maps a practice area to the closest contact-form topic so the form arrives pre-selected.
-function topicFor(slug: string): string | undefined {
-  const map: Record<string, string> = {
-    ingatlanjog: contact.topics[0],
-    "tarsasagi-jog": contact.topics[1],
-    "egeszsegugyi-jog": contact.topics[2],
-    "adatvedelem-gdpr": contact.topics[3],
-    munkajog: contact.topics[4],
-    "polgari-jog": contact.topics[5],
-  };
-  return map[slug];
-}
-
 export default async function PracticeAreaPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
-  const area = practiceAreas.find((p) => p.slug === slug);
+  const area = getPracticeArea(slug);
   if (!area) notFound();
 
-  const others = practiceAreas.filter((p) => p.slug !== area.slug).slice(0, 3);
+  const firm = getFirm();
+  const others = getPracticeAreas().filter((p) => p.slug !== area.slug).slice(0, 3);
 
   return (
     <>
@@ -65,7 +53,7 @@ export default async function PracticeAreaPage({ params }: { params: Promise<Par
             <div className="flex items-center gap-5 rounded-[calc(2rem-0.5rem)] bg-ink-800 p-5">
               <div className="arch relative h-28 w-24 shrink-0 overflow-hidden">
                 <Image
-                  src="/brand/portrait-tall.jpg"
+                  src={firm.images.portrait.src}
                   alt={firm.name}
                   fill
                   sizes="96px"
@@ -97,8 +85,8 @@ export default async function PracticeAreaPage({ params }: { params: Promise<Par
               <h2 className="mt-8 max-w-[16ch] text-balance font-display text-4xl font-medium leading-[1.05] tracking-tight text-ink sm:text-5xl">
                 Miért fontos a jó jogi háttér ezen a területen?
               </h2>
-              {area.intro.map((p) => (
-                <p key={p.slice(0, 20)} className="mt-5 max-w-[56ch] text-pretty text-[15.5px] leading-relaxed text-muted">
+              {area.intro.map((p, i) => (
+                <p key={i} className="mt-5 max-w-[56ch] text-pretty text-[15.5px] leading-relaxed text-muted">
                   {p}
                 </p>
               ))}
@@ -115,8 +103,8 @@ export default async function PracticeAreaPage({ params }: { params: Promise<Par
               <Eyebrow>Miben segítek</Eyebrow>
             </Reveal>
             <RevealGroup as="ul" className="mt-6 grid gap-px overflow-hidden rounded-[1.75rem] bg-ink/8 ring-1 ring-ink/8 sm:grid-cols-2" gap={0.07}>
-              {area.services.map((s) => (
-                <RevealChild as="li" key={s.title} className="bg-white p-6 sm:p-7">
+              {area.services.map((s, i) => (
+                <RevealChild as="li" key={i} className="bg-white p-6 sm:p-7">
                   <span className="grid size-8 place-items-center rounded-full bg-sky-soft text-sky-deep">
                     <Check size={14} weight="bold" />
                   </span>
@@ -133,7 +121,7 @@ export default async function PracticeAreaPage({ params }: { params: Promise<Par
             </Reveal>
             <RevealGroup as="ol" className="mt-6 grid gap-4 sm:grid-cols-2" gap={0.08}>
               {area.process.map((p, i) => (
-                <RevealChild as="li" key={p.step} className="relative rounded-[1.5rem] bg-white p-6 ring-1 ring-ink/8">
+                <RevealChild as="li" key={i} className="relative rounded-[1.5rem] bg-white p-6 ring-1 ring-ink/8">
                   <span className="font-display text-[2.6rem] font-medium leading-none text-sky/60">
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -189,7 +177,7 @@ export default async function PracticeAreaPage({ params }: { params: Promise<Par
         </div>
       </section>
 
-      <ContactSection defaultTopic={topicFor(area.slug)} />
+      <ContactSection defaultTopic={area.contactTopic || undefined} />
     </>
   );
 }

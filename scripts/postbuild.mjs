@@ -12,6 +12,13 @@ const out = fileURLToPath(new URL("../out/", import.meta.url));
 const htaccessPath = join(out, ".htaccess");
 const preview = (process.env.SITE_PREVIEW ?? "on").toLowerCase() !== "off";
 const EXECUTABLE_TYPES = new Set(["", "text/javascript", "application/javascript", "module"]);
+// Every hash listed here is trusted by the CSP, so only the two shapes Next.js emits for its
+// flight data are accepted; any other inline script (e.g. markup smuggled in through editable
+// content) fails the build instead of being allowed.
+const NEXT_INLINE_SCRIPTS = [
+  /^\(self\.__next_f=self\.__next_f\|\|\[\]\)\.push\(\[0\]\)$/,
+  /^self\.__next_f\.push\(\[\d+,[\s\S]*\]\)$/,
+];
 
 const fail = (message) => {
   console.error(`postbuild: ${message}`);
@@ -44,6 +51,10 @@ for (const file of pages) {
     }
     const type = (attrs.match(/\btype\s*=\s*["']([^"']*)["']/i)?.[1] ?? "").toLowerCase();
     if (!EXECUTABLE_TYPES.has(type)) continue;
+    if (!NEXT_INLINE_SCRIPTS.some((shape) => shape.test(body))) {
+      problems.push(`${where}: unexpected inline script ${JSON.stringify(body.slice(0, 60))}`);
+      continue;
+    }
     hashes.add(`'sha256-${createHash("sha256").update(body, "utf8").digest("base64")}'`);
   }
 

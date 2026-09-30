@@ -4,7 +4,7 @@ import { AreaIcon } from "@/components/ui/AreaIcon";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal, RevealChild, RevealGroup } from "@/components/ui/Reveal";
-import { nicheHighlight, practiceAreas, type PracticeArea } from "@/content/site";
+import { getHome, getPracticeAreas, type PracticeArea } from "@/content";
 
 // Asymmetric 12-column bento – no two rows share the same split.
 const spans = [
@@ -15,6 +15,11 @@ const spans = [
   "lg:col-span-6",
   "lg:col-span-6",
 ];
+
+/** Cards pair up per row; an unpaired last card spans the full row instead of leaving a gap. */
+function spanFor(index: number, count: number) {
+  return index === count - 1 && count % 2 === 1 ? "lg:col-span-12" : spans[index % spans.length];
+}
 
 function AreaCard({ area, span }: { area: PracticeArea; span: string }) {
   return (
@@ -58,6 +63,8 @@ function AreaCard({ area, span }: { area: PracticeArea; span: string }) {
 }
 
 export function PracticeAreas() {
+  const { practiceAreas: section, niche } = getHome();
+  const areas = getPracticeAreas();
   return (
     <section id="szakteruletek" className="relative overflow-hidden bg-ink py-24 text-white lg:py-36">
       <div className="bg-uprights-light absolute inset-0" aria-hidden />
@@ -68,21 +75,19 @@ export function PracticeAreas() {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
-            <Eyebrow tone="dark">Szakterületek</Eyebrow>
+            <Eyebrow tone="dark">{section.eyebrow}</Eyebrow>
             <h2 className="mt-6 max-w-[16ch] text-balance font-display text-4xl font-medium leading-[1.02] tracking-tight sm:text-5xl lg:text-6xl">
-              Fókuszált szakértelem, ahol a részletek számítanak
+              {section.title}
             </h2>
           </div>
           <p className="max-w-[46ch] text-[15.5px] leading-relaxed text-white/60 lg:col-span-5 lg:pb-2">
-            Hat jogterület, amelyeken napi gyakorlattal dolgozom – mindegyik oldalon
-            konkrét szolgáltatásokkal, folyamattal és a leggyakoribb kérdésekre adott
-            válaszokkal.
+            {section.text}
           </p>
         </Reveal>
 
         <RevealGroup as="ul" className="mt-16 grid gap-4 lg:grid-cols-12" gap={0.08}>
-          {practiceAreas.map((a, i) => (
-            <AreaCard key={a.slug} area={a} span={spans[i % spans.length]} />
+          {areas.map((a, i) => (
+            <AreaCard key={a.slug} area={a} span={spanFor(i, areas.length)} />
           ))}
         </RevealGroup>
 
@@ -90,23 +95,23 @@ export function PracticeAreas() {
           <div className="grid gap-6 rounded-[calc(1.75rem-0.375rem)] bg-ink-800/70 p-7 sm:p-8 lg:grid-cols-12 lg:items-center">
             <div className="flex items-center gap-5 lg:col-span-4">
               <span className="arch grid h-16 w-12 shrink-0 place-items-end justify-items-center bg-sky text-ink pb-3">
-                <AreaIcon name={nicheHighlight.icon} size={24} weight="regular" />
+                <AreaIcon name={niche.icon} size={24} weight="regular" />
               </span>
               <div>
                 <p className="text-[10.5px] font-semibold uppercase tracking-[0.22em] text-sky">
-                  {nicheHighlight.eyebrow}
+                  {niche.eyebrow}
                 </p>
                 <h3 className="mt-1 font-display text-2xl font-medium tracking-tight">
-                  {nicheHighlight.title}
+                  {niche.title}
                 </h3>
               </div>
             </div>
             <p className="text-[14.5px] leading-relaxed text-white/65 lg:col-span-6">
-              {nicheHighlight.text}
+              {niche.text}
             </p>
             <div className="lg:col-span-2 lg:justify-self-end">
               <Button href="/kapcsolat" tone="glass">
-                Egyeztetés
+                {niche.cta}
               </Button>
             </div>
           </div>

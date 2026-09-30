@@ -3,11 +3,14 @@ import { Certificate, Translate, Timer, Handshake } from "@phosphor-icons/react/
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal, RevealChild, RevealGroup } from "@/components/ui/Reveal";
-import { about, firm } from "@/content/site";
+import { getAbout, getFirm, getHome } from "@/content";
 
 const valueIcons = [Handshake, Timer, Certificate];
 
 export function About() {
+  const firm = getFirm();
+  const about = getAbout();
+  const section = getHome().about;
   return (
     <section id="rolam" className="relative overflow-hidden bg-paper py-24 lg:py-36">
       <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-8">
@@ -17,12 +20,12 @@ export function About() {
               <div className="rounded-[2rem] bg-ink/5 p-2 ring-1 ring-ink/6">
                 <div className="relative overflow-hidden rounded-[calc(2rem-0.5rem)] shadow-ambient">
                   <Image
-                    src="/brand/portrait.jpg"
+                    src={firm.images.office.src}
                     alt={`${firm.name} az irodájában`}
-                    width={582}
-                    height={620}
+                    width={firm.images.office.width}
+                    height={firm.images.office.height}
                     sizes="(min-width: 1024px) 460px, 90vw"
-                    className="h-auto w-full object-cover"
+                    className="aspect-[582/620] h-auto w-full object-cover"
                   />
                 </div>
               </div>
@@ -32,10 +35,10 @@ export function About() {
                     <Translate size={26} weight="light" className="text-sky" />
                     <div>
                       <p className="text-[10.5px] uppercase tracking-[0.2em] text-white/55">
-                        Munkanyelvek
+                        {section.languagesLabel}
                       </p>
                       <p className="mt-0.5 font-display text-xl font-medium leading-none">
-                        Magyar · English · Deutsch
+                        {section.languages}
                       </p>
                     </div>
                   </div>
@@ -55,8 +58,8 @@ export function About() {
           <RevealChild as="p" className="mt-7 max-w-[60ch] text-pretty text-[17px] leading-relaxed text-ink/85">
             {about.lead}
           </RevealChild>
-          {about.paragraphs.map((p) => (
-            <RevealChild key={p.slice(0, 24)} as="p" className="mt-5 max-w-[62ch] text-pretty text-[15.5px] leading-relaxed text-muted">
+          {about.paragraphs.map((p, i) => (
+            <RevealChild key={i} as="p" className="mt-5 max-w-[62ch] text-pretty text-[15.5px] leading-relaxed text-muted">
               {p}
             </RevealChild>
           ))}
@@ -65,7 +68,7 @@ export function About() {
             {about.values.map((v, i) => {
               const Icon = valueIcons[i % valueIcons.length];
               return (
-                <div key={v.title} className="bg-white p-6">
+                <div key={i} className="bg-white p-6">
                   <Icon size={24} weight="light" className="text-sky-deep" />
                   <h3 className="mt-4 font-display text-xl font-medium tracking-tight text-ink">
                     {v.title}
@@ -78,10 +81,10 @@ export function About() {
 
           <RevealChild as="div" className="mt-10 flex flex-wrap items-center gap-3">
             <Button href="/rolam" tone="ink">
-              Teljes bemutatkozás
+              {section.primaryCta}
             </Button>
             <Button href="/kapcsolat" tone="ghost" icon={false}>
-              Időpontot kérek
+              {section.secondaryCta}
             </Button>
           </RevealChild>
         </RevealGroup>

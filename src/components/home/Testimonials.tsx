@@ -1,9 +1,11 @@
 import { GoogleLogo, Quotes, Star } from "@phosphor-icons/react/dist/ssr";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal, RevealChild, RevealGroup } from "@/components/ui/Reveal";
-import { firm, testimonials } from "@/content/site";
+import { getFirm, getHome } from "@/content";
 
 export function Testimonials() {
+  const firm = getFirm();
+  const { testimonials } = getHome();
   return (
     <section id="velemenyek" className="relative overflow-hidden bg-ink py-24 text-white lg:py-36">
       <div className="bg-uprights-light absolute inset-0" aria-hidden />
@@ -20,7 +22,7 @@ export function Testimonials() {
             </h2>
           </div>
           <a
-            href={firm.social.google}
+            href={firm.googleProfileUrl}
             target="_blank"
             rel="noreferrer"
             className="group flex w-max items-center gap-5 rounded-2xl bg-white/[0.04] p-1.5 ring-1 ring-white/10 transition-colors duration-500 hover:bg-white/[0.07] lg:col-span-5 lg:justify-self-end"
@@ -52,7 +54,7 @@ export function Testimonials() {
           {testimonials.items.map((t, i) => (
             <RevealChild
               as="li"
-              key={t.name}
+              key={i}
               className={`w-[85vw] shrink-0 snap-center sm:w-[420px] lg:w-auto ${i % 2 === 1 ? "lg:translate-y-8" : ""}`}
             >
               <figure className="h-full rounded-[1.75rem] bg-white/[0.04] p-1.5 ring-1 ring-white/10">
@@ -75,10 +77,9 @@ export function Testimonials() {
             </RevealChild>
           ))}
         </RevealGroup>
-        <p className="mt-6 text-[11.5px] text-white/35">
-          A vélemények bemutató célú mintaszövegek; a végleges oldalon az ügyfelek
-          hozzájárulásával közölt, ellenőrizhető értékelések jelennek meg.
-        </p>
+        {testimonials.note && (
+          <p className="mt-6 text-[11.5px] text-white/35">{testimonials.note}</p>
+        )}
       </div>
     </section>
   );

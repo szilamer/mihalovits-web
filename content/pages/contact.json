@@ -1,0 +1,23 @@
+{
+  "seo": {
+    "title": "Kapcsolat – konzultáció kérése",
+    "description": "Kérjen időpontot személyes vagy online konzultációra. Iroda: 1064 Budapest, Podmaniczky utca 31. Telefon: +36 30 219 5593. Válasz 24 órán belül."
+  },
+  "eyebrow": "Kapcsolat",
+  "title": "Beszéljük át az ügyét",
+  "text": "Írja le röviden, miben segíthetek – 24 órán belül visszajelzek egy javasolt időponttal. Az üzenet küldése nem jár kötelezettséggel, tartalmát ügyvédi titok védi.",
+  "topics": [
+    "Ingatlan adásvétel",
+    "Cégügyek, szerződések",
+    "Egészségügyi / gyógyszerjog",
+    "Adatvédelem, GDPR",
+    "Munkajog",
+    "Polgári jog, jogvita",
+    "Egyéb"
+  ],
+  "form": {
+    "successTitle": "Köszönöm, megkaptam az üzenetét.",
+    "successText": "Munkanapokon 24 órán belül jelentkezem a megadott e-mail címen vagy telefonszámon egy javasolt időponttal. Sürgős ügyben hívjon közvetlenül.",
+    "responseNote": "Válasz munkanapokon 24 órán belül."
+  }
+}

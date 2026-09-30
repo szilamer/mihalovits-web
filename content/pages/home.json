@@ -1,0 +1,157 @@
+{
+  "seo": {
+    "title": "Dr. Mihalovits Máté ügyvéd | Ingatlanjog, társasági jog, GDPR – Budapest",
+    "description": "Budapesti ügyvédi praxis ingatlanjogi, társasági jogi, egészségügyi- és gyógyszerjogi, valamint adatvédelmi ügyekben. Jogi tanácsadás, okiratszerkesztés és képviselet magyar, angol és német nyelven."
+  },
+  "hero": {
+    "eyebrow": "Ügyvéd · Budapest, VI. kerület",
+    "title": "Jogi biztonság, *érthető* nyelven.",
+    "lead": "Ingatlanügyletek, cégek, egészségügyi szektor és adatvédelem – nemzetközi ügyvédi irodákban és gyógyszeripari vállalatoknál szerzett tapasztalattal, gyakorlatias és üzleti szemlélettel képviselem ügyfeleimet.",
+    "primaryCta": "Konzultációt kérek",
+    "secondaryCta": "Szakterületek",
+    "highlights": [
+      "Ingatlan adásvétel 48 órán belül",
+      "Személyesen vagy online",
+      "HU · EN · DE"
+    ],
+    "responseBadge": {
+      "label": "Visszajelzés",
+      "value": "24 órán belül"
+    },
+    "stats": [
+      {
+        "value": "7+",
+        "label": "év jogi tapasztalat nemzetközi irodáknál és multinacionális cégeknél"
+      },
+      {
+        "value": "3",
+        "label": "munkanyelv: magyar, angol, német"
+      },
+      {
+        "value": "24 ó",
+        "label": "alatt visszajelzés minden megkeresésre"
+      }
+    ]
+  },
+  "trustPoints": [
+    "Budapesti Ügyvédi Kamara tagja",
+    "Ügyvédi felelősségbiztosítással",
+    "Személyes és online konzultáció",
+    "Sürgős esetben 4 órán belül",
+    "Átlátható, előre egyeztetett díjazás",
+    "Magyar, angol és német nyelven"
+  ],
+  "practiceAreas": {
+    "eyebrow": "Szakterületek",
+    "title": "Fókuszált szakértelem, ahol a részletek számítanak",
+    "text": "Hat jogterület, amelyeken napi gyakorlattal dolgozom – mindegyik oldalon konkrét szolgáltatásokkal, folyamattal és a leggyakoribb kérdésekre adott válaszokkal."
+  },
+  "niche": {
+    "eyebrow": "Speciális iparági fókusz",
+    "title": "Ékszer- és nemesfém-ágazat",
+    "text": "Nemesfém-kereskedők, ékszerkészítők és luxuscikk-forgalmazók számára nyújtok jogi támogatást: nemesfém-nyilvántartás, fémjelzés, pénzmosás elleni megfelelés, forgalmazási és konszignációs szerződések, márkavédelem.",
+    "icon": "diamond",
+    "cta": "Egyeztetés"
+  },
+  "about": {
+    "languagesLabel": "Munkanyelvek",
+    "languages": "Magyar · English · Deutsch",
+    "primaryCta": "Teljes bemutatkozás",
+    "secondaryCta": "Időpontot kérek"
+  },
+  "process": {
+    "eyebrow": "Hogyan dolgozom",
+    "title": "Négy átlátható lépés az első hívástól a megoldásig",
+    "cta": "Első lépés: kapcsolat",
+    "steps": [
+      {
+        "title": "Kapcsolatfelvétel",
+        "text": "Írjon vagy hívjon – 24 órán belül visszajelzek, és javaslok egy időpontot. Sürgős ügyben akár 4 órán belül.",
+        "meta": "Díjmentes"
+      },
+      {
+        "title": "Első konzultáció",
+        "text": "45–60 perces személyes vagy online megbeszélés, ahol átnézzük a helyzetet, a lehetőségeket és a várható költségeket.",
+        "meta": "Személyesen vagy online"
+      },
+      {
+        "title": "Ajánlat és megbízás",
+        "text": "Írásbeli ajánlatot kap fix díjjal vagy óradíjas kerettel. A megbízási szerződést elektronikusan is aláírhatja.",
+        "meta": "Írásban rögzített díj"
+      },
+      {
+        "title": "Ügyintézés",
+        "text": "Folyamatos tájékoztatás minden fontos lépésről, elérhetőség telefonon és e-mailben, az ügy lezárásáig.",
+        "meta": "Rendszeres státuszjelentés"
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Ügyfélvélemények",
+    "title": "Amit az ügyfeleim mondanak",
+    "rating": {
+      "value": "5,0",
+      "count": 4,
+      "source": "Google-értékelés"
+    },
+    "items": [
+      {
+        "quote": "Lakásvásárlásnál két nap alatt megkaptuk a szerződéstervezetet, minden kérdésünkre érthető választ kaptunk. A bankkal is ő egyeztetett – nekünk csak aláírni kellett.",
+        "name": "Bérczi Nóra",
+        "role": "Ingatlan adásvétel · Budapest XIII.",
+        "initials": "BN"
+      },
+      {
+        "quote": "Magánrendelőnk GDPR-dokumentációját és a betegtájékoztatóinkat készítette el. Végre olyan jogászunk van, aki érti az egészségügyi működést.",
+        "name": "Dr. Vass Kornélia",
+        "role": "Ügyvezető · magánklinika",
+        "initials": "VK"
+      },
+      {
+        "quote": "Német anyavállalatunkkal közvetlenül, német nyelven egyeztetett a forgalmazási szerződésről. Pontos, gyors, és az üzleti szempontokat is érti.",
+        "name": "Halmágyi Gergő",
+        "role": "Country Manager · kereskedelmi vállalat",
+        "initials": "HG"
+      },
+      {
+        "quote": "Munkaviszonyom megszüntetésekor segített egy méltányos megállapodást elérni – tárgyalás közben is nyugodt és határozott maradt.",
+        "name": "Szendrey Ákos",
+        "role": "Munkajogi képviselet",
+        "initials": "SÁ"
+      }
+    ],
+    "note": "A vélemények bemutató célú mintaszövegek; a végleges oldalon az ügyfelek hozzájárulásával közölt, ellenőrizhető értékelések jelennek meg."
+  },
+  "faq": {
+    "eyebrow": "Gyakori kérdések",
+    "title": "Amit az első megbeszélés előtt érdemes tudni",
+    "text": "Ha nem találja a választ, hívjon a {telefon} számon, vagy írjon – 24 órán belül válaszolok.",
+    "cta": "Kérdést teszek fel",
+    "items": [
+      {
+        "q": "Mennyibe kerül az első konzultáció?",
+        "a": "Az első, 45–60 perces konzultáció díja 25 000 Ft + ÁFA (minta), amely megbízás esetén teljes egészében beszámításra kerül a munkadíjba. Egyszerű, előre tisztázható kérdésekben a telefonos egyeztetés díjmentes."
+      },
+      {
+        "q": "Hogyan alakul az ügyvédi munkadíj?",
+        "a": "Az ügy típusától függően fix díjas (pl. adásvételi szerződés, cégalapítás) vagy óradíjas elszámolást alkalmazok. A díjat minden esetben előre, írásban rögzítjük, és a megbízás során nincs rejtett költség."
+      },
+      {
+        "q": "Lehet online intézni az ügyeket?",
+        "a": "Igen. A konzultáció videóhívásban is tartható, a dokumentumokat pedig elektronikusan, AVDH-val vagy minősített elektronikus aláírással is aláírhatja. Külföldön élő ügyfeleim jelentős része teljesen online intézi ügyeit."
+      },
+      {
+        "q": "Milyen nyelveken dolgozik?",
+        "a": "Magyar, angol és német nyelven egyaránt vállalok tanácsadást, okiratszerkesztést és tárgyalást – tolmács bevonása nélkül."
+      },
+      {
+        "q": "Mit hozzak az első találkozóra?",
+        "a": "Minden, az üggyel kapcsolatos dokumentumot (szerződések, levelezés, határozatok) érdemes elhozni vagy előre e-mailben elküldeni, így a konzultáción már konkrét javaslatokat tudok adni."
+      },
+      {
+        "q": "Sürgős ügyben mennyire gyorsan érhető el?",
+        "a": "Munkanapokon 8 és 18 óra között telefonon közvetlenül elérhető vagyok, sürgős esetben 4 órán belül visszahívom. Határidős ügyekben (pl. felmondás megtámadása) kérem, jelezze ezt már az első üzenetben."
+      }
+    ]
+  }
+}

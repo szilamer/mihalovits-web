@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal, RevealChild, RevealGroup } from "@/components/ui/Reveal";
-import { process } from "@/content/site";
+import { getHome } from "@/content";
 
 export function Process() {
+  const { process } = getHome();
   return (
     <section id="folyamat" className="relative overflow-hidden bg-white py-24 lg:py-36">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -15,7 +16,7 @@ export function Process() {
             </h2>
           </div>
           <Button href="/kapcsolat" tone="ink" className="shrink-0">
-            Első lépés: kapcsolat
+            {process.cta}
           </Button>
         </Reveal>
 
@@ -25,7 +26,7 @@ export function Process() {
             className="absolute left-[1.35rem] top-2 hidden h-px w-[calc(100%-2.7rem)] bg-ink/10 lg:block"
           />
           {process.steps.map((s, i) => (
-            <RevealChild as="li" key={s.title} className="relative lg:pt-10">
+            <RevealChild as="li" key={i} className="relative lg:pt-10">
               <span className="arch absolute -top-1 left-0 hidden h-5 w-3 bg-sky lg:block" aria-hidden />
               <span className="font-display text-[2.75rem] font-medium leading-none tracking-tight text-sky">
                 {String(i + 1).padStart(2, "0")}

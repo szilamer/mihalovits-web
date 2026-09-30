@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { firm } from "@/content/site";
+import { getFirm } from "@/content";
 
 type LogoProps = {
   variant?: "light" | "dark" | "mark";
@@ -27,6 +27,7 @@ export function Logo({
   href = "/",
 }: LogoProps) {
   const s = sources[variant];
+  const firm = getFirm();
   const img = (
     <Image
       src={s.src}

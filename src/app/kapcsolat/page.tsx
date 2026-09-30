@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { ContactSection } from "@/components/contact/ContactSection";
+import { getContactPage } from "@/content";
 
-export const metadata: Metadata = {
-  title: "Kapcsolat – konzultáció kérése",
-  description:
-    "Kérjen időpontot személyes vagy online konzultációra. Iroda: 1064 Budapest, Podmaniczky utca 31. Telefon: +36 30 219 5593. Válasz 24 órán belül.",
-  alternates: { canonical: "/kapcsolat" },
-};
+export function generateMetadata(): Metadata {
+  const page = getContactPage();
+  return {
+    title: page.seo.title,
+    description: page.seo.description || page.text,
+    alternates: { canonical: "/kapcsolat" },
+  };
+}
 
 export default function ContactPage() {
   return (

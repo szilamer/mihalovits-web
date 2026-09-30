@@ -1,0 +1,67 @@
+{
+  "order": 2,
+  "title": "Társasági és kereskedelmi jog",
+  "shortTitle": "Társasági jog",
+  "eyebrow": "Cégeknek és tulajdonosoknak",
+  "summary": "Cégalapítás, tulajdonosi megállapodások, kereskedelmi szerződések és compliance – üzleti szemlélettel, a napi működést támogatva.",
+  "icon": "briefcase",
+  "contactTopic": "Cégügyek, szerződések",
+  "intro": [
+    "Több évet töltöttem multinacionális vállalatok belső jogi csapatában, ezért tudom, hogy egy vállalkozás nem jogi memorandumot, hanem működő megoldást vár.",
+    "A tanácsadás során az üzleti célt tartom szem előtt, és a kockázatokat úgy kezelem, hogy a döntéshozatal ne lassuljon le."
+  ],
+  "services": [
+    {
+      "title": "Cégalapítás és módosítás",
+      "description": "Kft., Zrt., Bt. alapítása, tőkeemelés, tulajdonosváltás, székhelyváltozás elektronikus cégeljárásban."
+    },
+    {
+      "title": "Szindikátusi szerződés",
+      "description": "Tulajdonosok közötti megállapodások, elővásárlási jogok, drag-along és tag-along klauzulák."
+    },
+    {
+      "title": "Kereskedelmi szerződések",
+      "description": "Szállítási, forgalmazási, franchise- és ügynöki szerződések magyar, angol és német nyelven."
+    },
+    {
+      "title": "Általános szerződési feltételek",
+      "description": "Webshopok és szolgáltatók ÁSZF-je, fogyasztóvédelmi megfelelőség."
+    },
+    {
+      "title": "Compliance",
+      "description": "Belső szabályzatok, visszaélés-bejelentési rendszer, versenyjogi megfelelés."
+    },
+    {
+      "title": "Átvilágítás (due diligence)",
+      "description": "Céges és ingatlanos átvilágítás akvizíciók, befektetések előtt."
+    }
+  ],
+  "process": [
+    {
+      "step": "Megismerés",
+      "detail": "Az üzleti modell és a döntési struktúra feltérképezése."
+    },
+    {
+      "step": "Kockázatelemzés",
+      "detail": "A jogi kockázatok rangsorolása üzleti hatás szerint."
+    },
+    {
+      "step": "Dokumentáció",
+      "detail": "Szerződések, szabályzatok elkészítése érthető, alkalmazható formában."
+    },
+    {
+      "step": "Támogatás",
+      "detail": "Folyamatos rendelkezésre állás havidíjas keretmegbízásban is."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Vállal havidíjas jogi támogatást?",
+      "a": "Igen. Kis- és középvállalkozásoknak kiszámítható, óraalapú vagy fix havidíjas keretmegbízást ajánlok."
+    },
+    {
+      "q": "Mennyi idő egy cégalapítás?",
+      "a": "Egyszerűsített cégeljárásban az iratok aláírásától számítva jellemzően 1–3 munkanap."
+    }
+  ]
+}

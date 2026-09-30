@@ -1,0 +1,62 @@
+{
+  "order": 6,
+  "title": "Polgári jog, szerződések és peres képviselet",
+  "shortTitle": "Polgári jog",
+  "eyebrow": "Szerződések és jogviták",
+  "summary": "Szerződések szerkesztése és véleményezése, kártérítési igények, követeléskezelés, valamint képviselet peres és peren kívüli eljárásokban.",
+  "icon": "scales",
+  "contactTopic": "Polgári jog, jogvita",
+  "intro": [
+    "A legjobb per az, amelyre nem kerül sor. A szerződéskötési szakaszban végzett gondos munka a viták többségét megelőzi – ha pedig a vita mégis kialakul, határozott és stratégiai képviseletre van szükség."
+  ],
+  "services": [
+    {
+      "title": "Szerződések",
+      "description": "Vállalkozási, megbízási, kölcsön- és biztosítéki szerződések szerkesztése, véleményezése."
+    },
+    {
+      "title": "Kártérítés és sérelemdíj",
+      "description": "Szerződésszegésből és szerződésen kívüli károkozásból eredő igények érvényesítése."
+    },
+    {
+      "title": "Követeléskezelés",
+      "description": "Fizetési meghagyás, végrehajtás, felszámolási eljárásban való részvétel."
+    },
+    {
+      "title": "Peres képviselet",
+      "description": "Képviselet bíróság előtt polgári és gazdasági perekben, valamint választottbírósági eljárásban."
+    },
+    {
+      "title": "Egyezségi tárgyalások",
+      "description": "Mediációs és peren kívüli megállapodások előkészítése."
+    },
+    {
+      "title": "Öröklési jog",
+      "description": "Végrendelet, öröklési szerződés, hagyatéki eljárásban való képviselet."
+    }
+  ],
+  "process": [
+    {
+      "step": "Elemzés",
+      "detail": "Jogi álláspont és esélyek írásbeli értékelése."
+    },
+    {
+      "step": "Felszólítás",
+      "detail": "Peren kívüli igényérvényesítés, egyezségi javaslat."
+    },
+    {
+      "step": "Eljárás",
+      "detail": "Kereset, fizetési meghagyás vagy választottbírósági eljárás indítása."
+    },
+    {
+      "step": "Végrehajtás",
+      "detail": "A jogerős döntés érvényesítése."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Mekkora a pernyertesség esélye?",
+      "a": "Minden ügyben írásbeli kockázatértékelést készítek az első konzultáció után, mielőtt bármilyen eljárás indul."
+    }
+  ]
+}
