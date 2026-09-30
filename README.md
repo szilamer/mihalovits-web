@@ -6,15 +6,16 @@ PHP-végpontok a tárhelyen (kapcsolati űrlap, admin-bejelentkezés).
 
 ## Tartalom szerkesztése (admin)
 
-1. Nyissa meg: **https://mihalovits.eu/admin/**. Amíg az előnézeti mód be van kapcsolva,
-   a böngésző előbb az előnézeti felhasználót és jelszót kéri (lásd lent).
-2. **Sign In with GitHub**: GitHub-fiókkal lehet belépni. Szerkeszteni az tud, akinek
-   írási joga van a [szilamer/mihalovits-web](https://github.com/szilamer/mihalovits-web)
-   repóhoz. Új szerkesztőt a repó *Settings → Collaborators* menüjében lehet hozzáadni.
+1. Nyissa meg: **https://mihalovits.eu/admin/**, és kattintson a **Belépés** gombra.
+2. A felugró ablakban a saját felhasználónevével és jelszavával lépjen be. GitHub-fiók nem kell,
+   és az előnézeti jelszó sem. Egy belépés 8 óráig érvényes. Minden belépésről értesítő e-mail
+   megy az iroda címére. Öt hibás jelszó után a fiók 15 percre zárolódik.
 3. **Oldalak**: a fix oldalak szövegei. **Szakterületek**: új szakterület a *New* gombbal,
    a sorrend a *Reorder* gombbal húzható. **Beállítások**: elérhetőségek, nyitvatartás, fotók.
 4. **Save**: a mentés után az oldal kb. 3–5 percen belül frissül. A mentés a GitHubon egy
    commit, amit a GitHub Actions ellenőriz és lefordít, a tárhely pedig letölti és kiteszi.
+   A commitok a bekapcsolt GitHub-fiók nevén jelennek meg (lásd *Szerkesztői fiókok*). Azt, hogy
+   ki lépett be, a tárhely belépési naplója őrzi.
 
 A képek feltöltéskor automatikusan WebP formátumra alakulnak, és legfeljebb 2400 px-esek
 lesznek. Csak JPG, PNG vagy WebP tölthető fel, SVG biztonsági okból nem. A mezők
@@ -23,7 +24,41 @@ Ha egy mentés mégis hibás tartalmat okozna, a telepítés leáll, és a régi
 Ilyenkor a hiba oka a repó [Actions](https://github.com/szilamer/mihalovits-web/actions)
 lapján olvasható.
 
-A Sveltia CMS kezelőfelülete angol nyelvű, a mezők nevei és a súgók magyarok.
+A Sveltia CMS kezelőfelülete angol nyelvű, a mezők nevei és a súgók magyarok. A belépőablak
+és a belépés gomb magyar.
+
+### Szerkesztői fiókok és a GitHub-kapcsolat (üzemeltetőnek)
+
+A belépést a tárhely kezeli (`public/oauth/`). A szerkesztők saját felhasználónévvel és jelszóval
+lépnek be. A szerver ezután a tárolt GitHub-engedélyből kér egy 8 órás tokent, és azt adja át a
+tartalomkezelőnek. A fiókokat a tárhelyen a `mihalovits-admin` parancs kezeli
+([`public/oauth/cli.php`](public/oauth/cli.php)). A jelszót mindig a standard bemenetről olvassa,
+így az nem látszik a folyamatlistában. A jelszavak a fejlesztő gépén a Keychainben vannak
+(„mihalovits.eu admin”, fiók = felhasználónév).
+
+```bash
+ssh mihalovits '~/bin/mihalovits-admin list'
+security find-generic-password -s 'mihalovits.eu admin' -a mate -w |
+  ssh mihalovits '~/bin/mihalovits-admin add mate "Dr. Mihalovits Máté"'   # jelszó: legalább 16 karakter
+ssh -t mihalovits '~/bin/mihalovits-admin passwd mate'   # rejtett bevitellel kéri az új jelszót
+ssh mihalovits '~/bin/mihalovits-admin unlock mate'      # zárolás feloldása; továbbá: disable, enable, remove
+```
+
+**GitHub-kapcsolat.** A tartalomkezelő egyetlen GitHub-fiók nevében ment. Ezt a fiókot egyszer
+kell engedélyezni: az alábbi parancs kiír egy kódot. A kódot a https://github.com/login/device
+oldalon kell beírni, azzal a GitHub-fiókkal belépve, amelyik a repót írhatja. Ehhez a GitHub
+App beállításaiban a *Device Flow*-nak bekapcsolva kell lennie. A kapcsolás után érdemes kikapcsolni,
+mert így az App nevében senki sem kérhet ilyen kódot. Az *Expire user authorization tokens*
+maradjon bekapcsolva.
+
+```bash
+ssh mihalovits '~/bin/mihalovits-admin github-connect'
+ssh mihalovits '~/bin/mihalovits-admin github-status'
+```
+
+Az engedély 6 hónapig érvényes, és minden belépés megújítja. Ha hosszabb ideig senki nem lép be,
+a heti cron (`keepalive`) újítja meg. Ha mégis megszakad (pl. valaki visszavonja a GitHubon),
+a belépőablak ezt kiírja, és e-mail is megy. Ilyenkor a `github-connect`-et kell újra futtatni.
 
 ## Fejlesztés
 
@@ -31,7 +66,7 @@ A Sveltia CMS kezelőfelülete angol nyelvű, a mezők nevei és a súgók magya
 npm ci
 npm run dev        # http://localhost:3000 (a kapcsolati űrlap itt egy helyi végpontra megy)
 npm run lint
-npm test           # tartalom-, admin-konfig-, űrlap- és OAuth-tesztek (a PHP-sekhez php kell)
+npm test           # tartalom-, admin-konfig-, űrlap- és belépési tesztek (PHP kell: curl, Argon2)
 npm run build      # statikus export az out/ mappába, az adminnal együtt (out/admin/)
 ```
 
@@ -96,7 +131,7 @@ Ehhez a `~/.ssh/config`-ban egy `mihalovits` nevű host kell a saját kulccsal, 
 csak engedélyezett hálózatból érhető el. A következő automatikus telepítés felülírja.
 
 **A tárhely beállítása vagy a telepítő frissítése:** `scripts/server-setup.sh`. Ez telepíti a
-`server-deploy.sh`-t és a cron-sort, és ismételten is futtatható.
+`server-deploy.sh`-t, a `mihalovits-admin` parancsot és a két cron-sort, és ismételten is futtatható.
 
 ## Előnézeti mód és élesítés
 
@@ -116,17 +151,21 @@ Ettől a `.htaccess` megváltozik (kikerül belőle a jelszókapu), ezért a bui
 kell hagyni (lásd *Szerveroldali fájlok jóváhagyása*).
 
 Az nginx a létező statikus fájlokat (képek, JS, CSS, `.txt`, `.json`) közvetlenül szolgálja
-ki, ezért ezekre a jelszó nem vonatkozik. Az oldalak és az admin védettek.
+ki, ezért ezekre a jelszó nem vonatkozik. Az oldalak védettek. Az admin nem, mert annak saját
+belépése van, és előtte nem mutat tartalmat.
 
 ## Biztonság röviden
 
 - **CSP:** a fő oldalon csak a Next.js saját inline scriptjei futhatnak, hash alapján. A build
   leáll, ha más inline script kerülne a kimenetbe. Az admin saját, szigorú CSP-t kap, és csak
   a GitHub API-val kommunikál.
-- **Bejelentkezés:** GitHub App („Mihalovits Web Admin”) csak `contents: write` joggal, csak
-  erre a repóra telepítve. A tokent a `callback.php` szerveroldalon kéri le (PKCE +
-  egyszer használatos state-süti), és csak a `https://mihalovits.eu` originnek adja át.
-  A token 8 óra után lejár.
+- **Bejelentkezés:** saját felhasználónév és jelszó. A tárhelyen a jelszavaknak csak az
+  Argon2id-hash-e van meg. A hibás próbálkozásokat fiókonként, IP-címenként és összesítve is
+  korlátozza. Zároláskor és minden sikeres belépéskor e-mail megy. Sikeres belépés után a szerver
+  a tárolt GitHub-engedélyből 8 órás tokent kér, és csak a `https://mihalovits.eu` originnek adja
+  át. Az engedélyt a „Mihalovits Web Admin” GitHub App adja, amelynek csak `contents: write` joga
+  van, és csak erre a repóra van telepítve. Az űrlapot egy `SameSite=Strict` süti és az
+  origin-ellenőrzés védi, a belépőablakra nonce-os CSP vonatkozik.
 - **Kapcsolati űrlap:** időalapú HMAC-token, rate limit, origin-ellenőrzés, fejléc-injektálás
   elleni szűrés. Az üzenet nem kerül lemezre, csak e-mailben megy ki.
 - **Telepítés:** a tárhely maga tölti le a buildet, kívülről nem lehet rá írni. A `deploy` ágat
@@ -140,22 +179,27 @@ ki, ezért ezekre a jelszó nem vonatkozik. Az oldalak és az admin védettek.
 | --- | --- |
 | `~/public_html/` | a telepített oldal (a telepítő tükrözi, a `.well-known/` kivétel) |
 | `~/bin/mihalovits-deploy` + crontab | a percenkénti telepítő (`scripts/server-deploy.sh`) |
+| `~/bin/mihalovits-admin` + crontab | szerkesztői fiókok, GitHub-kapcsolat, heti megújítás (`public/oauth/cli.php`) |
 | `~/.config/mihalovits/deploy-approved` | a jóváhagyott PHP- és `.htaccess`-fájlok ujjlenyomatai |
 | `~/.cache/mihalovits-deploy/` | a telepítő naplója és állapota |
-| `~/.config/mihalovits/contact.php` | űrlap-címzett és HMAC-titok (`scripts/server-setup.sh` hozza létre) |
+| `~/.config/mihalovits/contact.php` | űrlap-címzett és HMAC-titok (`scripts/server-setup.sh` hozza létre); az értesítők is ide mennek |
 | `~/.config/mihalovits/oauth.php` | a GitHub App azonosítója és titka |
-| `~/.cache/mihalovits-contact/`, `~/.cache/mihalovits-oauth/` | rate-limit számlálók, hibanaplók |
+| `~/.config/mihalovits/editors.json` | a szerkesztői fiókok (a jelszavak csak Argon2id-hash-ként) |
+| `~/.config/mihalovits/github-grant.json` | a GitHub-engedély megújító tokenje (minden használatkor cserélődik) |
+| `~/.cache/mihalovits-oauth/` | belépési napló (`auth.log`), zárolási számlálók, hibanapló |
+| `~/.cache/mihalovits-contact/` | az űrlap rate-limit számlálói és hibanaplója |
 | `~/.htpasswds/mihalovits-preview` | az előnézeti jelszó bcrypt-hash-e |
 
 A GitHub App titkának cseréje: GitHub → *Settings → Developer settings → GitHub Apps →
 Mihalovits Web Admin → Generate a new client secret*, majd az új értéket az `oauth.php`-ba kell
-írni. Az App privát kulcsára (`.pem`) nincs szükség.
+írni. A csere a zárolási számlálókat is lenullázza. Az App privát kulcsára (`.pem`) nincs szükség.
 
 ## Indulás előtti teendők
 
 1. A minta-szövegek cseréje az adminban: KASZ-szám, diploma, díjak, és a vélemények
    ügyfél-hozzájárulással.
 2. Az adatkezelési tájékoztató és az impresszum jogi véglegesítése.
-3. Az ügyvéd GitHub-fiókjának felvétele a repóba szerkesztőként (Collaborator, Write).
+3. Az ügyvéd belépési adatainak személyes átadása: a felhasználónév `mate`, a jelszó a
+   Keychainben van („mihalovits.eu admin” / `mate`).
 4. Élesítés (`SITE_PREVIEW=off`, lásd fent), utána a Google Search Console-ban a sitemap
    beküldése: `https://mihalovits.eu/sitemap.xml`.

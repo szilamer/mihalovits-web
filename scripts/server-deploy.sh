@@ -93,8 +93,8 @@ reject() {
   echo "$sha" > "$state/rejected"
   exit 1
 }
-for f in index.html 404.html .htaccess contact.php admin/index.html oauth/common.php oauth/auth.php \
-  oauth/callback.php build.txt; do
+for f in index.html 404.html .htaccess contact.php admin/index.html admin/config.yml oauth/common.php \
+  oauth/accounts.php oauth/github.php oauth/auth.php oauth/cli.php build.txt; do
   [[ -f "$work/$f" ]] || reject "$f missing"
 done
 if grep -q "__CSP_SCRIPT_HASHES__" "$work/.htaccess"; then reject "unprocessed .htaccess"; fi

@@ -35,7 +35,7 @@ jobs:
 
       - name: PHP for the endpoint tests
         run: |
-          php -r 'exit(extension_loaded("curl") ? 0 : 1);'
+          php -r 'exit(extension_loaded("curl") && extension_loaded("mbstring") && defined("PASSWORD_ARGON2ID") ? 0 : 1);'
           php -v | head -1
 
       - run: npm ci

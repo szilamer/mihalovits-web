@@ -34,9 +34,10 @@ AddType application/wasm .wasm
 <Files "contact.php">
   Require all granted
 </Files>
-<FilesMatch "^(?:auth|callback)\.php$">
-  Require expr "%{REQUEST_URI} =~ m#^/oauth/(?:auth|callback)\.php$#"
-</FilesMatch>
+# The admin's sign-in window; the other files in /oauth/ are its libraries and command line.
+<Files "auth.php">
+  Require expr "%{REQUEST_URI} =~ m#^/oauth/auth\.php$#"
+</Files>
 <FilesMatch "^(?:error_log|php_errorlog)$">
   Require all denied
 </FilesMatch>
@@ -45,12 +46,14 @@ AddType application/wasm .wasm
 # Until the content is approved the site sits behind a shared password and stays out of search engines.
 # Covers everything Apache serves (documents, PHP, sitemap); nginx answers existing static files
 # (.txt/.json/.js/.css/images/fonts) directly, so those are only obscure, not protected.
-# The www host only ever redirects, so it may pass without a password.
+# The www host only ever redirects, so it may pass without a password. The admin shows nothing
+# before its own sign-in (the content comes from GitHub), so editors only need their own password.
 AuthType Basic
 AuthName "mihalovits.eu preview"
 AuthUserFile /home/mihalov2/.htpasswds/mihalovits-preview
 <RequireAny>
   Require expr "%{REQUEST_URI} =~ m#^/\.well-known/#"
+  Require expr "%{REQUEST_URI} =~ m#^/admin(?:/|$)#"
   Require expr "%{HTTP_HOST} =~ m#^www\.#i"
   Require valid-user
 </RequireAny>
