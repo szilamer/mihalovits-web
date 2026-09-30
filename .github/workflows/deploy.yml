@@ -1,0 +1,73 @@
+# Every push to main – including each save in the admin – is checked, built and published to
+# mihalovits.eu. A failing check stops the run, so the live site keeps its previous version.
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Runs queue instead of cancelling each other, so an upload is never interrupted halfway.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: PHP for the endpoint tests
+        run: php -r 'exit(extension_loaded("curl") ? 0 : 1);' && php -v | head -1
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+        env:
+          SITE_PREVIEW: ${{ vars.SITE_PREVIEW }}
+
+      - name: SSH access (upload-only key, pinned host keys)
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          (umask 077 && printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key)
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          cat > ~/.ssh/config <<'EOF'
+          Host mihalovits
+            HostName we052.tarhely.com
+            User mihalov2
+            IdentityFile ~/.ssh/deploy_key
+            IdentitiesOnly yes
+            StrictHostKeyChecking yes
+            BatchMode yes
+          EOF
+
+      - name: Upload
+        run: bash scripts/deploy.sh
+        env:
+          SKIP_BUILD: "1"
+          DEPLOY_TARGET: "mihalovits:"
+
+      - name: Smoke test
+        run: bash scripts/smoke-test.sh
+        env:
+          PREVIEW_PASSWORD: ${{ secrets.PREVIEW_PASSWORD }}
+
+      - name: Remove key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
