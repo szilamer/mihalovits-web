@@ -3,6 +3,7 @@
 # the contact endpoint and the preview gate. Exit code = number of failed checks.
 # Env: SITE (default https://mihalovits.eu), PREVIEW_PASSWORD (needed while the gate is on),
 #      RESOLVE_IP (pin DNS to the host, e.g. while local resolvers still cache an old record).
+# shellcheck disable=SC2015 # pass() only prints, so "check && pass || fail" never runs both.
 set -uo pipefail
 
 site="${SITE:-https://mihalovits.eu}"

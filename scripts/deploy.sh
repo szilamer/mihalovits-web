@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
-# Publishes the static export to the hosting account over SSH (rsync).
+# Manual publishing from a developer machine over SSH (rsync). The regular path is GitHub Actions
+# plus the host's pull job (scripts/server-deploy.sh), which replaces a manual upload on its next run.
+# The host only accepts SSH from allowed networks, not from GitHub's runners.
 #   npm run deploy                build, then upload (preview gate stays on unless SITE_PREVIEW=off)
 #   npm run deploy -- --dry-run   list what would change on the server, upload nothing
-# Env: DEPLOY_TARGET (default mihalovits:public_html/, the Host alias from ~/.ssh/config or CI),
+# Env: DEPLOY_TARGET (default mihalovits:public_html/, the Host alias from ~/.ssh/config),
 #      SKIP_BUILD=1 to upload an already built out/.
 set -euo pipefail
 cd "$(dirname "$0")/.."

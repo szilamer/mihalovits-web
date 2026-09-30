@@ -1,5 +1,9 @@
-# Every push to main – including each save in the admin – is checked, built and published to
-# mihalovits.eu. A failing check stops the run, so the live site keeps its previous version.
+# Every push to main – including each save in the admin – is checked and built here, then published
+# as the single commit of the deploy branch, which a ruleset reserves for this workflow's deploy key.
+# The host polls that branch every minute and mirrors it into its web root (scripts/server-deploy.sh),
+# so it accepts no inbound access; changed PHP or .htaccess waits there for approval over SSH.
+# A failing check stops the run before publishing, so the live site keeps its previous version;
+# the run ends green only once the new build is live and passes the smoke test.
 name: Build and deploy
 
 on:
@@ -10,7 +14,7 @@ on:
 permissions:
   contents: read
 
-# Runs queue instead of cancelling each other, so an upload is never interrupted halfway.
+# Runs queue instead of cancelling each other, so a publication is never interrupted halfway.
 concurrency:
   group: deploy-production
   cancel-in-progress: false
@@ -41,35 +45,43 @@ jobs:
         env:
           SITE_PREVIEW: ${{ vars.SITE_PREVIEW }}
 
-      - name: SSH access (upload-only key, pinned host keys)
+      - name: Publish to the deploy branch
+        id: publish
         env:
-          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-          DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
+          DEPLOY_PUSH_KEY: ${{ secrets.DEPLOY_PUSH_KEY }}
         run: |
+          printf '%s\n' "$GITHUB_SHA" > out/build.txt
           install -m 700 -d ~/.ssh
-          (umask 077 && printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key)
-          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          cat > ~/.ssh/config <<'EOF'
-          Host mihalovits
-            HostName we052.tarhely.com
-            User mihalov2
-            IdentityFile ~/.ssh/deploy_key
-            IdentitiesOnly yes
-            StrictHostKeyChecking yes
-            BatchMode yes
-          EOF
+          (umask 077 && printf '%s\n' "$DEPLOY_PUSH_KEY" > ~/.ssh/deploy_push_key)
+          trap 'rm -f ~/.ssh/deploy_push_key' EXIT
+          curl -fsS https://api.github.com/meta | jq -r '.ssh_keys[] | "github.com " + .' > ~/.ssh/github_known_hosts
+          cd out
+          git init --quiet --initial-branch=deploy
+          git add --all
+          git -c user.name="github-actions[bot]" \
+            -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit --quiet --message="Build of ${GITHUB_SHA}"
+          GIT_SSH_COMMAND="ssh -i $HOME/.ssh/deploy_push_key -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/github_known_hosts" \
+            git push --force --quiet "git@github.com:${GITHUB_REPOSITORY}.git" HEAD:refs/heads/deploy
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git log --format='deploy branch: %H (%s)' -1
 
-      - name: Upload
-        run: bash scripts/deploy.sh
+      - name: Wait until the host has published it
         env:
-          SKIP_BUILD: "1"
-          DEPLOY_TARGET: "mihalovits:"
+          DEPLOY_SHA: ${{ steps.publish.outputs.sha }}
+        run: |
+          for attempt in $(seq 1 40); do
+            live="$(curl -fsS --max-time 10 https://mihalovits.eu/build.txt 2>/dev/null || true)"
+            if [[ "$live" == "$GITHUB_SHA" ]]; then
+              echo "live after ${SECONDS} seconds (attempt ${attempt})"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::The host has not published ${GITHUB_SHA} within 7 minutes. If this build changes PHP or .htaccess, review it, then approve it on the host: ssh mihalovits '~/bin/mihalovits-deploy --approve ${DEPLOY_SHA}'. Otherwise see ~/.cache/mihalovits-deploy/deploy.log there."
+          exit 1
 
       - name: Smoke test
         run: bash scripts/smoke-test.sh
         env:
           PREVIEW_PASSWORD: ${{ secrets.PREVIEW_PASSWORD }}
-
-      - name: Remove key
-        if: always()
-        run: rm -f ~/.ssh/deploy_key

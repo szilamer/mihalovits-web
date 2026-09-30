@@ -1,12 +1,28 @@
 #!/usr/bin/env bash
-# One-time, idempotent preparation of the hosting account (run from a machine with SSH access).
-#   scripts/server-setup.sh                      create the contact-form config if missing
+# Idempotent preparation of the hosting account (run from a machine with SSH access).
+#   scripts/server-setup.sh                      contact-form config if missing; installs or updates
+#                                                the publishing job (scripts/server-deploy.sh + cron)
 #   PREVIEW_PASSWORD=... scripts/server-setup.sh also (re)set the preview-gate password
 # The contact-form secret is generated on the server and never leaves it; the preview password
-# travels over SSH stdin only and is stored there as a bcrypt hash.
+# travels over SSH stdin only and is stored there as a bcrypt hash. Approving changed server files
+# of a build: ssh mihalovits '~/bin/mihalovits-deploy --approve <deploy commit>'.
 set -euo pipefail
 
 host="${DEPLOY_HOST:-mihalovits}"
+
+ssh "$host" 'set -e; umask 022; mkdir -p ~/bin; cat > ~/bin/mihalovits-deploy.tmp
+  chmod 755 ~/bin/mihalovits-deploy.tmp; mv ~/bin/mihalovits-deploy.tmp ~/bin/mihalovits-deploy' \
+  < "$(dirname "$0")/server-deploy.sh"
+ssh "$host" 'bash -s' <<'REMOTE'
+set -euo pipefail
+jobs="$(crontab -l 2>/dev/null || true)"
+if ! grep -qF "bin/mihalovits-deploy" <<<"$jobs"; then
+  printf '%s\n* * * * * %s >/dev/null 2>&1\n' "$jobs" "$HOME/bin/mihalovits-deploy" | crontab -
+  echo "server-setup: publishing job added to crontab (every minute)"
+else
+  echo "server-setup: publishing job already in crontab"
+fi
+REMOTE
 
 ssh "$host" 'bash -s' <<'REMOTE'
 set -euo pipefail

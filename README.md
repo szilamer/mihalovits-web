@@ -13,8 +13,8 @@ PHP-végpontok a tárhelyen (kapcsolati űrlap, admin-bejelentkezés).
    repóhoz. Új szerkesztőt a repó *Settings → Collaborators* menüjében lehet hozzáadni.
 3. **Oldalak**: a fix oldalak szövegei. **Szakterületek**: új szakterület a *New* gombbal,
    a sorrend a *Reorder* gombbal húzható. **Beállítások**: elérhetőségek, nyitvatartás, fotók.
-4. **Save**: a mentés után az oldal kb. 2–3 percen belül frissül. A mentés a GitHubon egy
-   commit, amit a GitHub Actions ellenőriz, lefordít és feltölt.
+4. **Save**: a mentés után az oldal kb. 3–5 percen belül frissül. A mentés a GitHubon egy
+   commit, amit a GitHub Actions ellenőriz és lefordít, a tárhely pedig letölti és kiteszi.
 
 A képek feltöltéskor automatikusan WebP formátumra alakulnak, és legfeljebb 2400 px-esek
 lesznek. Csak JPG, PNG vagy WebP tölthető fel, SVG biztonsági okból nem. A mezők
@@ -54,16 +54,39 @@ Node ≥ 22.18 kell (a `.ts` sémafájlt a Node közvetlenül futtatja), a CI No
 ## Telepítés
 
 **Automatikus:** minden push a `main` ágra (így minden admin-mentés is) elindítja a
-[`deploy.yml`](.github/workflows/deploy.yml) munkafolyamatot. Ennek lépései: lint, tesztek,
-build, feltöltés rsync-kel, majd élő füstteszt (`scripts/smoke-test.sh`). A futások sorba
-állnak, egy feltöltést sosem szakít meg a következő.
+[`deploy.yml`](.github/workflows/deploy.yml) munkafolyamatot:
 
-A CI egy külön SSH-kulccsal dolgozik (GitHub secret: `DEPLOY_SSH_KEY`). A szerveren ez a
-kulcs `rrsync -wo` korlátozással csak fájlokat tud a `public_html`-be írni: shellt nem kap,
-olvasni nem tud. A szerver hostkulcsai rögzítettek (`DEPLOY_KNOWN_HOSTS` változó).
+1. lint, tesztek, build;
+2. a kész oldal egyetlen commitként a `deploy` ágra kerül;
+3. a tárhely percenként megnézi ezt az ágat (`~/bin/mihalovits-deploy` cronból, forrása
+   [`scripts/server-deploy.sh`](scripts/server-deploy.sh)). Ha változott, pontosan azt a commitot
+   tölti le HTTPS-en, ellenőrzi, és kiteszi a `public_html`-be;
+4. a CI megvárja, amíg az új build élesben megjelenik (`/build.txt`), aztán lefuttatja az élő
+   füsttesztet (`scripts/smoke-test.sh`). A futások sorba állnak.
+
+A tárhelyre kívülről semmi nem ír. Az SSH-ja a GitHub gépeiről nem is érhető el, és a CI-ban
+nincs tárhely-hozzáférés. A `deploy` ágat a „deploy ág: csak a CI (deploy kulcs)” ruleset védi:
+csak a CI deploy kulcsa írhatja (`DEPLOY_PUSH_KEY` secret), a szerkesztők és az admin tokenje nem.
+
+**Szerveroldali fájlok jóváhagyása.** A tárhely csak akkor tesz ki egy buildet, ha a benne lévő
+PHP-fájlok és a `.htaccess` (a CSP-hash-ek listáját leszámítva) megegyeznek a jóváhagyottakkal.
+Új vagy módosult PHP, alkönyvtárbeli `.htaccess`, `.user.ini` vagy szimbolikus link esetén a
+build nem megy ki. Így egy ellopott szerkesztői fiókkal sem lehet kódot futtatni a tárhelyen,
+ahol a levelezés is van. Ha szándékosan módosul a PHP vagy a `.htaccess` (élesítéskor is), a CI
+„The host has not published…” hibával áll meg, és kiírja a parancsot. A változás átnézése után:
+
+```bash
+ssh mihalovits '~/bin/mihalovits-deploy --approve <deploy commit>'
+```
+
+Utána egy percen belül kimegy. Napló: `~/.cache/mihalovits-deploy/deploy.log`.
 
 **Kézi (fejlesztői gépről):** `npm run deploy` (előtte `npm run deploy -- --dry-run`).
-Ehhez a `~/.ssh/config`-ban egy `mihalovits` nevű host kell a saját kulccsal.
+Ehhez a `~/.ssh/config`-ban egy `mihalovits` nevű host kell a saját kulccsal, és a tárhely SSH-ja
+csak engedélyezett hálózatból érhető el. A következő automatikus telepítés felülírja.
+
+**A tárhely beállítása vagy a telepítő frissítése:** `scripts/server-setup.sh`. Ez telepíti a
+`server-deploy.sh`-t és a cron-sort, és ismételten is futtatható.
 
 ## Előnézeti mód és élesítés
 
@@ -79,6 +102,9 @@ gh variable set SITE_PREVIEW --body off -R szilamer/mihalovits-web
 gh workflow run deploy.yml -R szilamer/mihalovits-web
 ```
 
+Ettől a `.htaccess` megváltozik (kikerül belőle a jelszókapu), ezért a buildet a tárhelyen jóvá
+kell hagyni (lásd *Szerveroldali fájlok jóváhagyása*).
+
 Az nginx a létező statikus fájlokat (képek, JS, CSS, `.txt`, `.json`) közvetlenül szolgálja
 ki, ezért ezekre a jelszó nem vonatkozik. Az oldalak és az admin védettek.
 
@@ -93,6 +119,8 @@ ki, ezért ezekre a jelszó nem vonatkozik. Az oldalak és az admin védettek.
   A token 8 óra után lejár.
 - **Kapcsolati űrlap:** időalapú HMAC-token, rate limit, origin-ellenőrzés, fejléc-injektálás
   elleni szűrés. Az üzenet nem kerül lemezre, csak e-mailben megy ki.
+- **Telepítés:** a tárhely maga tölti le a buildet, kívülről nem lehet rá írni. A `deploy` ágat
+  csak a CI írhatja. PHP- vagy `.htaccess`-változás csak SSH-s jóváhagyás után megy ki.
 - **Titkok** sosem kerülnek a repóba. A szerveren a webrooton kívül vannak, a CI-ban
   GitHub secretként. A nyilvános repón titokkeresés és push-védelem is fut.
 
@@ -100,12 +128,14 @@ ki, ezért ezekre a jelszó nem vonatkozik. Az oldalak és az admin védettek.
 
 | Útvonal | Tartalom |
 | --- | --- |
-| `~/public_html/` | a telepített oldal (a CI tükrözi, a `.well-known/` kivétel) |
+| `~/public_html/` | a telepített oldal (a telepítő tükrözi, a `.well-known/` kivétel) |
+| `~/bin/mihalovits-deploy` + crontab | a percenkénti telepítő (`scripts/server-deploy.sh`) |
+| `~/.config/mihalovits/deploy-approved` | a jóváhagyott PHP- és `.htaccess`-fájlok ujjlenyomatai |
+| `~/.cache/mihalovits-deploy/` | a telepítő naplója és állapota |
 | `~/.config/mihalovits/contact.php` | űrlap-címzett és HMAC-titok (`scripts/server-setup.sh` hozza létre) |
 | `~/.config/mihalovits/oauth.php` | a GitHub App azonosítója és titka |
 | `~/.cache/mihalovits-contact/`, `~/.cache/mihalovits-oauth/` | rate-limit számlálók, hibanaplók |
 | `~/.htpasswds/mihalovits-preview` | az előnézeti jelszó bcrypt-hash-e |
-| `~/bin/rrsync`, `~/.ssh/authorized_keys` | a CI-kulcs korlátozása |
 
 A GitHub App titkának cseréje: GitHub → *Settings → Developer settings → GitHub Apps →
 Mihalovits Web Admin → Generate a new client secret*, majd az új értéket az `oauth.php`-ba kell
