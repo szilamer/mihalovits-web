@@ -582,7 +582,7 @@ export const cmsCollections: CmsCollection[] = [
     name: "pages",
     label: "Oldalak",
     icon: "article",
-    description: "Az oldalak szövegei. Mentés után az oldal 2–3 percen belül frissül.",
+    description: "Az oldalak szövegei. Mentés után az oldal kb. 3–5 percen belül frissül.",
     files: [
       contentFiles.home,
       contentFiles.about,
