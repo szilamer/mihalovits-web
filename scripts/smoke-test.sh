@@ -85,10 +85,6 @@ expect_header http location "https://$host/kapcsolat/"
 expect_status "unknown page" 404 "$(fetch missing "${auth[@]}" "$site/nincs-ilyen-oldal/")"
 grep -q "<html" "$tmp/missing.b" && pass "404 page is the site's own page" || fail "404 body is not the site's page"
 
-expect_status "/.htaccess" "403|404" "$(fetch dot1 "${auth[@]}" "$site/.htaccess")"
-expect_status "/.git/config" "403|404" "$(fetch dot2 "${auth[@]}" "$site/.git/config")"
-expect_status "backup file" 403 "$(fetch bak "${auth[@]}" "$site/contact.php.bak")"
-expect_status "stray PHP" 403 "$(fetch php "${auth[@]}" "$site/info.php")"
 expect_status "ACME path without password" 404 "$(fetch acme "$site/.well-known/acme-challenge/smoke-test")"
 
 expect_status "/admin/" 200 "$(fetch admin "${auth[@]}" "$site/admin/")"
@@ -130,6 +126,18 @@ else
   expect_status "contact foreign origin" 403 "$(fetch corigin -X POST -H 'Content-Type: application/json' -H 'Origin: https://evil.example' --data '{"action":"token"}' "$site/contact.php")"
   expect_status "contact token" 200 "$(fetch ctoken -X POST -H 'Content-Type: application/json' -H "Origin: $site" --data '{"action":"token"}' "$site/contact.php")"
   grep -qE '"token":"[0-9]{10}\.[a-f0-9]{16}\.[a-f0-9]{64}"' "$tmp/ctoken.b" && pass "contact token is signed" || fail "contact token malformed: $(head -c 200 "$tmp/ctoken.b")"
+fi
+
+# Requests for hidden, backup and stray files look like a vulnerability scan: the host's firewall
+# (Imunify360) blocks the client's IP seconds later, so these run last and not from CI. Its runners
+# are flagged anyway, and the rules behind them only change with an approved .htaccess.
+if [[ -n "${GITHUB_ACTIONS:-}" && "${SMOKE_PROBES:-}" != 1 ]]; then
+  echo "  SKIP  forbidden-path probes (they would trip the host's firewall; SMOKE_PROBES=1 forces them)"
+else
+  expect_status "/.htaccess" "403|404" "$(fetch dot1 "${auth[@]}" "$site/.htaccess")"
+  expect_status "/.git/config" "403|404" "$(fetch dot2 "${auth[@]}" "$site/.git/config")"
+  expect_status "backup file" 403 "$(fetch bak "${auth[@]}" "$site/contact.php.bak")"
+  expect_status "stray PHP" 403 "$(fetch php "${auth[@]}" "$site/info.php")"
 fi
 
 echo "Failed checks: $fails"

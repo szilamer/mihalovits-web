@@ -81,6 +81,16 @@ ssh mihalovits '~/bin/mihalovits-deploy --approve <deploy commit>'
 
 Utána egy percen belül kimegy. Napló: `~/.cache/mihalovits-deploy/deploy.log`.
 
+**Füstteszt a CI-ban és helyben.** A tárhely védelme (Imunify360) a GitHub gépeit gyanúsnak
+tartja. A PHP-kérésekre ilyenkor JS-próbát ad, ezeket az ellenőrzéseket a CI kihagyja. A tiltott
+útvonalak próbáit (pl. `/.git/config`) szkennelésnek veszi, és letiltaná az IP-t, ezért ezek a
+CI-ban nem futnak. Jóváhagyás után ezért a teljes tesztet egy fejlesztői gépről kell futtatni:
+
+```bash
+PREVIEW_PASSWORD="$(security find-generic-password -s 'mihalovits.eu előnézet' -a elonezet -w)" \
+  bash scripts/smoke-test.sh
+```
+
 **Kézi (fejlesztői gépről):** `npm run deploy` (előtte `npm run deploy -- --dry-run`).
 Ehhez a `~/.ssh/config`-ban egy `mihalovits` nevű host kell a saját kulccsal, és a tárhely SSH-ja
 csak engedélyezett hálózatból érhető el. A következő automatikus telepítés felülírja.
