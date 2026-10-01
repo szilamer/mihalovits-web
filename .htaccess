@@ -1,0 +1,104 @@
+# Web-server rules for mihalovits.eu (Apache 2.4 behind nginx, Magyar Hosting / WePanel).
+# Template: scripts/postbuild.mjs fills the script-src placeholder with the hashes of the
+# inline scripts Next.js emitted and keeps or strips the preview-gate block. The build
+# fails if a placeholder survives, so this file is never deployed half-filled.
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+AddDefaultCharset utf-8
+# The admin compiles its image encoders with WebAssembly.instantiateStreaming, which needs this type.
+AddType application/wasm .wasm
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Hidden and backup files are never served; ACME challenges must stay reachable.
+  RewriteRule (^|/)\.(?!well-known(/|$)) - [F]
+  RewriteRule \.(?:bak|old|orig|save|swp|sql|log|ini|sh|lock|dist)$ - [F,NC]
+
+  # Single canonical origin. HTTP->HTTPS is already enforced by the panel (nginx) in front of Apache.
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
+  RewriteRule ^ https://mihalovits.eu%{REQUEST_URI} [R=301,L,NE]
+
+  # Add the trailing slash ourselves: mod_dir only sees the proxied http:// request and would redirect there.
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^(.*[^/])$ https://mihalovits.eu/$1/ [R=301,L]
+</IfModule>
+
+# Only the known endpoints may execute PHP, even if a stray .php file ends up in the web root.
+<FilesMatch "\.(?:php[0-9]?|pht|phtml|phar|phps)$">
+  Require all denied
+</FilesMatch>
+<Files "contact.php">
+  Require all granted
+</Files>
+# The admin's sign-in window; the other files in /oauth/ are its libraries and command line.
+<Files "auth.php">
+  Require expr "%{REQUEST_URI} =~ m#^/oauth/auth\.php$#"
+</Files>
+<FilesMatch "^(?:error_log|php_errorlog)$">
+  Require all denied
+</FilesMatch>
+
+# BEGIN preview-gate
+# Until the content is approved the site sits behind a shared password and stays out of search engines.
+# Covers everything Apache serves (documents, PHP, sitemap); nginx answers existing static files
+# (.txt/.json/.js/.css/images/fonts) directly, so those are only obscure, not protected.
+# The www host only ever redirects, so it may pass without a password. The admin shows nothing
+# before its own sign-in (the content comes from GitHub), so editors only need their own password.
+AuthType Basic
+AuthName "mihalovits.eu preview"
+AuthUserFile /home/mihalov2/.htpasswds/mihalovits-preview
+<RequireAny>
+  Require expr "%{REQUEST_URI} =~ m#^/\.well-known/#"
+  Require expr "%{REQUEST_URI} =~ m#^/admin(?:/|$)#"
+  Require expr "%{HTTP_HOST} =~ m#^www\.#i"
+  Require valid-user
+</RequireAny>
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+# END preview-gate
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), browsing-topics=()"
+  Header always unset X-Powered-By
+  Header unset X-Powered-By
+
+  # The CMS keeps its GitHub token in the browser: it only talks to GitHub, and its sign-in popup
+  # must keep window.opener (same-origin-allow-popups). The OAuth pages send their own headers.
+  <If "%{REQUEST_URI} =~ m#^/admin/#">
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://avatars.githubusercontent.com; font-src 'self'; connect-src 'self' blob: data: https://api.github.com https://www.githubstatus.com; media-src 'self' blob:; frame-src 'self' blob:; worker-src 'self' blob:; manifest-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+    Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+    Header always set X-Robots-Tag "noindex, nofollow"
+  </If>
+  <ElseIf "%{REQUEST_URI} !~ m#^/oauth/#">
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-7NK0nfyzoWuxxwawuvIf4b4LBLvsb/Fw51ah1DxPwgs=' 'sha256-8Y1Z6ENtyq+rmpXq7xk6YY+MYX0DEpJ1UVkboFDpIRc=' 'sha256-97HeBnmaYS0pDwERFlMyv1YUDNFlETikOQ8nXv/cXwU=' 'sha256-B/xg8HSKWXGZ+WMNIr76BypKUSvTtQphh00t3u+jBfY=' 'sha256-EPLmKmhpmnpYhfq0td53SEV80D+y8/cj2CPKcIE7Gr4=' 'sha256-EvnYuKd9wCn3FGD2WKQ798jSjvy/low8cCTsvpWSqBA=' 'sha256-J9H5r1LyJZog79vhWCz365U0dneUsq/3V/azbZZ5Xqc=' 'sha256-Lpf1omSNMgc0ZyEjuAaQizjFyxmzyVv8HWriG8KPShc=' 'sha256-OBTN3RiyCV4Bq7dFqZ5a2pAXjnCcCYeTJMO2I/LYKeo=' 'sha256-OUJDjip8/wgly4co9xjA1R4RewxvaUeY+X/bAhwgLys=' 'sha256-Tw2FulBUhMoOzSIRmQEcl8MC0Kn8RqgCg1p2hy/3TYw=' 'sha256-cODNx3s9GwpUkdv/C4IPp+R/21Kj6Tyv2KjQ0cQXpGQ=' 'sha256-ppWbOvE6Iynfd0uUjOEnqGxbeKfl5bvjyhiu8Soe38s=' 'sha256-xwK9d+ZkpTtENfKko6jP+tKXEeceoh6loZYHLiRDi/s='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+  </ElseIf>
+
+  # Only reaches files Apache serves: nginx already sends max-age=31536000 for existing static files.
+  # Next.js detects stale RSC payloads (.txt) from an older build and falls back to a full page load.
+  <If "%{REQUEST_URI} =~ m#^/_next/static/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  <ElseIf "%{REQUEST_URI} =~ m#\.php$#">
+    Header set Cache-Control "no-store"
+  </ElseIf>
+  <ElseIf "%{REQUEST_URI} =~ m#(?:/|\.html|\.txt|\.xml|\.ya?ml)$#">
+    Header set Cache-Control "no-cache"
+  </ElseIf>
+  <Else>
+    Header set Cache-Control "public, max-age=604800"
+  </Else>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/javascript application/json application/xml image/svg+xml
+</IfModule>

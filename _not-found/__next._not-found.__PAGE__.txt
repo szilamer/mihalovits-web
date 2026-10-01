@@ -1,0 +1,45 @@
+1:"$Sreact.fragment"
+2:I[85437,["/_next/static/chunks/0unoeryjde1hm.js","/_next/static/chunks/1bm2lrj46al2c.js","/_next/static/chunks/0035h6lpxtcyi.js"],"Image"]
+3:I[22016,["/_next/static/chunks/0unoeryjde1hm.js","/_next/static/chunks/1bm2lrj46al2c.js","/_next/static/chunks/0035h6lpxtcyi.js"],""]
+4:I[97367,["/_next/static/chunks/0unoeryjde1hm.js","/_next/static/chunks/1bm2lrj46al2c.js","/_next/static/chunks/0035h6lpxtcyi.js"],"OutletBoundary"]
+5:"$Sreact.suspense"
+9:I[97367,["/_next/static/chunks/0unoeryjde1hm.js","/_next/static/chunks/1bm2lrj46al2c.js","/_next/static/chunks/0035h6lpxtcyi.js"],"ViewportBoundary"]
+a:I[97367,["/_next/static/chunks/0unoeryjde1hm.js","/_next/static/chunks/1bm2lrj46al2c.js","/_next/static/chunks/0035h6lpxtcyi.js"],"MetadataBoundary"]
+8:X
+24:X
+24:C
+0:{"buildId":"D00MuDLOlkjeWTpY92Lx0","data":[{"rsc":["$","$1","c",{"children":[["$","section",null,{"className":"relative flex min-h-[100dvh] items-center overflow-hidden bg-ink text-white","children":[["$","div",null,{"className":"bg-uprights-light absolute inset-0","aria-hidden":true}],["$","$L2",null,{"src":"/brand/mark.png","alt":"","aria-hidden":true,"width":749,"height":514,"className":"pointer-events-none absolute -right-20 top-1/2 w-[560px] -translate-y-1/2 opacity-[0.06] select-none"}],["$","div",null,{"className":"relative mx-auto w-full max-w-7xl px-4 pt-24 sm:px-6 lg:px-8","children":[["$","span",null,{"className":"inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10.5px] font-semibold uppercase tracking-[0.22em] ring-1 text-sky ring-white/12 bg-white/5 ","children":[["$","span",null,{"className":"size-1.5 rounded-full bg-current","aria-hidden":true}],"404 · Az oldal nem található"]}],["$","h1",null,{"className":"mt-6 max-w-[14ch] text-balance font-display text-5xl font-medium leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl","children":"Ez az oldal nem létezik, vagy elköltözött."}],["$","p",null,{"className":"mt-6 max-w-[48ch] text-[16px] leading-relaxed text-white/65","children":"Kérem, ellenőrizze a hivatkozást, vagy térjen vissza a főoldalra – onnan minden szakterület és elérhetőség két kattintással elérhető."}],["$","div",null,{"className":"mt-10 flex flex-wrap gap-3","children":[["$","$L3",null,{"href":"/","className":"group relative inline-flex items-center rounded-full font-medium tracking-tight select-none transition-[background-color,color,box-shadow,transform] duration-500 ease-soft active:scale-[0.98] active:translate-y-px bg-sky text-ink hover:bg-sky-deep hover:text-white shadow-sky h-11 pl-5 pr-1.5 text-[13.5px] gap-3  ","children":[["$","span",null,{"children":"Vissza a főoldalra"}],["$","span",null,{"aria-hidden":true,"className":"grid place-items-center rounded-full transition-[transform,background-color] duration-500 ease-soft group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105 bg-ink/10 text-ink group-hover:bg-white/15 group-hover:text-white size-8","children":["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":16,"height":16,"fill":"currentColor","viewBox":"0 0 256 256","children":[false,"$undefined",["$","path",null,{"d":"M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"}]]}]}]]}],["$","$L3",null,{"href":"/kapcsolat","className":"group relative inline-flex items-center rounded-full font-medium tracking-tight select-none transition-[background-color,color,box-shadow,transform] duration-500 ease-soft active:scale-[0.98] active:translate-y-px bg-white/8 text-white ring-1 ring-white/15 backdrop-blur-md hover:bg-white/14 h-11 pl-5 pr-1.5 text-[13.5px] gap-3 pr-5 ","children":[["$","span",null,{"children":"Kapcsolat"}],false]}]]}]]}]]}],null,["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":"$@7","staleTime":"$8","varyParams":null},{"rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L9",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$La",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Dr. Mihalovits Máté ügyvéd | Ingatlanjog, társasági jog, GDPR – Budapest"}],["$","meta","1",{"name":"description","content":"Budapesti ügyvédi praxis ingatlanjogi, társasági jogi, egészségügyi- és gyógyszerjogi, valamint adatvédelmi ügyekben. Jogi tanácsadás, okiratszerkesztés és képviselet magyar, angol és német nyelven."}],["$","meta","2",{"name":"keywords","content":"ügyvéd Budapest,ingatlan ügyvéd,adásvételi szerződés ügyvéd,társasági jog,GDPR ügyvéd,gyógyszerjog,egészségügyi jog,munkajog ügyvéd,Mihalovits Máté"}],"$Lb","$Lc","$Ld","$Le","$Lf","$L10","$L11","$L12","$L13","$L14","$L15","$L16","$L17","$L18","$L19","$L1a","$L1b","$L1c","$L1d","$L1e","$L1f"]}]}]}],"$L20"]}],"isPartial":"$@21","staleTime":"$8","varyParams":null},{"rsc":"$L22","isPartial":"$@23","staleTime":"$8","varyParams":"$24"}],"isUpgradeableISRFallback":false,"a":"$@25","rootVaryParams":null,"needsRuntimeRequest":"$@26"}
+27:I[27201,["/_next/static/chunks/0unoeryjde1hm.js","/_next/static/chunks/1bm2lrj46al2c.js","/_next/static/chunks/0035h6lpxtcyi.js"],"IconMark"]
+28:I[39756,["/_next/static/chunks/0unoeryjde1hm.js","/_next/static/chunks/1bm2lrj46al2c.js","/_next/static/chunks/0035h6lpxtcyi.js"],"default"]
+29:I[37457,["/_next/static/chunks/0unoeryjde1hm.js","/_next/static/chunks/1bm2lrj46al2c.js","/_next/static/chunks/0035h6lpxtcyi.js"],"default"]
+6:null
+b:["$","meta","3",{"name":"robots","content":"index, follow"}]
+c:["$","meta","4",{"property":"og:title","content":"Dr. Mihalovits Máté ügyvéd – Budapest"}]
+d:["$","meta","5",{"property":"og:description","content":"Gyakorlatias jogi megoldások vállalkozásoknak és magánszemélyeknek"}]
+e:["$","meta","6",{"property":"og:site_name","content":"Dr. Mihalovits Máté ügyvéd"}]
+f:["$","meta","7",{"property":"og:locale","content":"hu_HU"}]
+10:["$","meta","8",{"property":"og:image","content":"https://mihalovits.eu/uploads/card.jpg?v=55189c0fe7"}]
+11:["$","meta","9",{"property":"og:image:width","content":"1022"}]
+12:["$","meta","10",{"property":"og:image:height","content":"620"}]
+13:["$","meta","11",{"property":"og:image:alt","content":"Dr. Mihalovits Máté"}]
+14:["$","meta","12",{"property":"og:type","content":"website"}]
+15:["$","meta","13",{"name":"twitter:card","content":"summary_large_image"}]
+16:["$","meta","14",{"name":"twitter:title","content":"Dr. Mihalovits Máté ügyvéd – Budapest"}]
+17:["$","meta","15",{"name":"twitter:description","content":"Gyakorlatias jogi megoldások vállalkozásoknak és magánszemélyeknek"}]
+18:["$","meta","16",{"name":"twitter:image","content":"https://mihalovits.eu/uploads/card.jpg?v=55189c0fe7"}]
+19:["$","meta","17",{"name":"twitter:image:alt","content":"Dr. Mihalovits Máté"}]
+1a:["$","meta","18",{"name":"twitter:image:width","content":"1022"}]
+1b:["$","meta","19",{"name":"twitter:image:height","content":"620"}]
+1c:["$","link","20",{"rel":"icon","href":"/favicon.ico?favicon.1amnkrulkxg0y.ico","sizes":"32x32","type":"image/x-icon"}]
+1d:["$","link","21",{"rel":"icon","href":"/favicon.ico"}]
+1e:["$","link","22",{"rel":"apple-touch-icon","href":"/brand/icon-512.png"}]
+1f:["$","$L27","23",{}]
+20:["$","meta",null,{"name":"next-size-adjust","content":""}]
+22:["$","$1","c",{"children":[null,["$","$L28",null,{"parallelRouterKey":"children","template":["$","$L29",null,{}]}]]}]
+26:true
+8:300
+8:C
+25:0
+21:"$undefined"
+23:"$undefined"
+7:"$undefined"
