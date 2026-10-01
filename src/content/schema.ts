@@ -323,14 +323,17 @@ export const homeSchema = z.strictObject({
       rating: group(
         {
           value: line("Értékelés", { max: 4, hint: "Pl. „5,0”." }),
-          count: withMeta(z.number().int().min(0).max(100000), { label: "Vélemények száma" }),
+          count: withMeta(z.number().int().min(0).max(100000), {
+            label: "Vélemények száma",
+            hint: "0 esetén az értékelés nem jelenik meg (sem a főoldal tetején, sem a vélemények mellett).",
+          }),
           source: line("Forrás", { max: 40, hint: "Pl. „Google-értékelés”." }),
         },
         { label: "Összesített értékelés" },
       ),
       items: list(testimonial, {
         label: "Vélemények",
-        hint: "Csak az ügyfél hozzájárulásával közölt, valós vélemény szerepelhet.",
+        hint: "Csak az ügyfél hozzájárulásával közölt, valós vélemény szerepelhet. Vélemény nélkül a szekció nem jelenik meg.",
         max: 8,
         summary: "{{fields.name}}",
         labelSingular: "vélemény",

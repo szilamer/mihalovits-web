@@ -6,6 +6,7 @@ import { getFirm, getHome } from "@/content";
 export function Testimonials() {
   const firm = getFirm();
   const { testimonials } = getHome();
+  if (testimonials.items.length === 0) return null;
   return (
     <section id="velemenyek" className="relative overflow-hidden bg-ink py-24 text-white lg:py-36">
       <div className="bg-uprights-light absolute inset-0" aria-hidden />
@@ -21,29 +22,31 @@ export function Testimonials() {
               {testimonials.title}
             </h2>
           </div>
-          <a
-            href={firm.googleProfileUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="group flex w-max items-center gap-5 rounded-2xl bg-white/[0.04] p-1.5 ring-1 ring-white/10 transition-colors duration-500 hover:bg-white/[0.07] lg:col-span-5 lg:justify-self-end"
-          >
-            <div className="flex items-center gap-5 rounded-[calc(1rem-0.25rem)] bg-ink-800 px-5 py-4">
-              <GoogleLogo size={28} weight="bold" className="text-white/80" />
-              <div>
-                <div className="flex items-center gap-1 text-sky">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} size={14} weight="fill" />
-                  ))}
-                  <span className="ml-2 font-display text-2xl font-semibold leading-none text-white">
-                    {testimonials.rating.value}
-                  </span>
+          {testimonials.rating.count > 0 && (
+            <a
+              href={firm.googleProfileUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex w-max items-center gap-5 rounded-2xl bg-white/[0.04] p-1.5 ring-1 ring-white/10 transition-colors duration-500 hover:bg-white/[0.07] lg:col-span-5 lg:justify-self-end"
+            >
+              <div className="flex items-center gap-5 rounded-[calc(1rem-0.25rem)] bg-ink-800 px-5 py-4">
+                <GoogleLogo size={28} weight="bold" className="text-white/80" />
+                <div>
+                  <div className="flex items-center gap-1 text-sky">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} size={14} weight="fill" />
+                    ))}
+                    <span className="ml-2 font-display text-2xl font-semibold leading-none text-white">
+                      {testimonials.rating.value}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-[12px] text-white/55">
+                    {testimonials.rating.count} nyilvános {testimonials.rating.source.toLowerCase()} alapján
+                  </p>
                 </div>
-                <p className="mt-1 text-[12px] text-white/55">
-                  {testimonials.rating.count} nyilvános {testimonials.rating.source.toLowerCase()} alapján
-                </p>
               </div>
-            </div>
-          </a>
+            </a>
+          )}
         </Reveal>
 
         <RevealGroup

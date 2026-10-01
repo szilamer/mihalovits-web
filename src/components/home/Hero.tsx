@@ -100,23 +100,25 @@ export function Hero() {
             </div>
           </RevealChild>
 
-          <RevealChild className="absolute -left-2 top-[62%] hidden sm:block lg:-left-10">
-            <div className="animate-float rounded-2xl bg-white/85 p-1 shadow-ambient-sm ring-1 ring-ink/6 backdrop-blur-md">
-              <div className="rounded-[calc(1rem-0.25rem)] bg-white px-4 py-3">
-                <div className="flex items-center gap-1 text-sky">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} size={13} weight="fill" />
-                  ))}
-                  <span className="ml-1.5 font-display text-xl font-semibold text-ink">
-                    {testimonials.rating.value}
-                  </span>
+          {testimonials.rating.count > 0 && (
+            <RevealChild className="absolute -left-2 top-[62%] hidden sm:block lg:-left-10">
+              <div className="animate-float rounded-2xl bg-white/85 p-1 shadow-ambient-sm ring-1 ring-ink/6 backdrop-blur-md">
+                <div className="rounded-[calc(1rem-0.25rem)] bg-white px-4 py-3">
+                  <div className="flex items-center gap-1 text-sky">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} size={13} weight="fill" />
+                    ))}
+                    <span className="ml-1.5 font-display text-xl font-semibold text-ink">
+                      {testimonials.rating.value}
+                    </span>
+                  </div>
+                  <p className="mt-0.5 text-[11.5px] text-muted">
+                    {testimonials.rating.source} · {testimonials.rating.count} vélemény
+                  </p>
                 </div>
-                <p className="mt-0.5 text-[11.5px] text-muted">
-                  {testimonials.rating.source} · {testimonials.rating.count} vélemény
-                </p>
               </div>
-            </div>
-          </RevealChild>
+            </RevealChild>
+          )}
 
           <RevealChild className="absolute -right-2 top-[16%] hidden sm:block lg:-right-6">
             <div className="rounded-2xl bg-ink/90 p-1 shadow-ambient ring-1 ring-white/10 backdrop-blur-md">
