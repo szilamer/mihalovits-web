@@ -1,16 +1,16 @@
 {
   "seo": {
     "title": "Dr. Mihalovits Máté ügyvéd | Ingatlanjog, társasági jog, GDPR – Budapest",
-    "description": "Budapesti ügyvédi praxis ingatlanjogi, társasági jogi, egészségügyi- és gyógyszerjogi, valamint adatvédelmi ügyekben. Jogi tanácsadás, okiratszerkesztés és képviselet magyar, angol és német nyelven."
+    "description": "Budapesti ügyvédi praxis ingatlanjogi, társasági jogi, büntetőjogi, egészségügyi- és gyógyszerjogi, adatvédelmi ügyekben, polgári peres eljárásokban és gazdasági jogban. Jogi tanácsadás, okiratszerkesztés és képviselet magyar, angol és német nyelven."
   },
   "hero": {
     "eyebrow": "Ügyvéd · Budapest, VI. kerület",
-    "title": "Jogi biztonság, *érthető* nyelven.",
-    "lead": "Ingatlanügyletek, cégek, egészségügyi szektor és adatvédelem – nemzetközi ügyvédi irodákban és gyógyszeripari vállalatoknál szerzett tapasztalattal, gyakorlatias és üzleti szemlélettel képviselem ügyfeleimet.",
+    "title": "*Biztonság* a bizonytalanságban.",
+    "lead": "Hazai és nemzetközi ügyvédi irodákban, valamint multinacionális vállalatoknál szerzett tapasztalattal, gyakorlatias és üzleti szemlélettel képviseljük ügyfeleinket.",
     "primaryCta": "Konzultációt kérek",
     "secondaryCta": "Szakterületek",
     "highlights": [
-      "Ingatlan adásvétel 48 órán belül",
+      "Konzultáció, adásvétel, cégeljárás akár 48 órán belül",
       "Személyesen vagy online",
       "HU · EN · DE"
     ],
@@ -20,8 +20,8 @@
     },
     "stats": [
       {
-        "value": "7+",
-        "label": "év jogi tapasztalat nemzetközi irodáknál és multinacionális cégeknél"
+        "value": "10+",
+        "label": "év jogi tapasztalat hazai és nemzetközi irodáknál, multinacionális vállalatoknál"
       },
       {
         "value": "3",
@@ -37,7 +37,7 @@
     "Budapesti Ügyvédi Kamara tagja",
     "Ügyvédi felelősségbiztosítással",
     "Személyes és online konzultáció",
-    "Sürgős esetben 4 órán belül",
+    "Sürgős esetben akár 4 órán belül",
     "Átlátható, előre egyeztetett díjazás",
     "Magyar, angol és német nyelven"
   ],
