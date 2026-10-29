@@ -3,8 +3,8 @@
   "title": "ügyvéd",
   "legalName": "Dr. Mihalovits Máté egyéni ügyvéd",
   "brand": "mihalovits",
-  "tagline": "Gyakorlatias jogi megoldások vállalkozásoknak és magánszemélyeknek",
-  "description": "Budapesti ügyvédi praxis ingatlanjogi, társasági jogi, egészségügyi- és gyógyszerjogi, valamint adatvédelmi ügyekben. Jogi tanácsadás, okiratszerkesztés és képviselet magyar, angol és német nyelven.",
+  "tagline": "Gyakorlatias, személyre szabott jogi megoldások vállalatoknak és magánszemélyeknek egyaránt",
+  "description": "Budapesti ügyvédi praxis ingatlanjogi, társasági jogi, gazdasági jogi, polgári peres, büntetőjogi, egészségügyi- és gyógyszerjogi, valamint adatvédelmi ügyekben. Jogi tanácsadás, okiratszerkesztés és képviselet magyar, angol és német nyelven.",
   "email": "info@mihalovits.eu",
   "phone": "+36 30 219 5593",
   "address": {
@@ -30,11 +30,11 @@
     "német"
   ],
   "chamber": "Budapesti Ügyvédi Kamara",
-  "chamberId": "KASZ 36-0XXXXX (minta)",
+  "chamberId": "KASZ: 36080393",
   "googleProfileUrl": "https://www.google.com/maps/search/?api=1&query=Dr.+Mihalovits+M%C3%A1t%C3%A9+%C3%BCgyv%C3%A9d+Budapest",
   "images": {
-    "portrait": "/uploads/portrait-tall.jpg",
-    "office": "/uploads/portrait.jpg",
-    "share": "/uploads/card.jpg"
+    "portrait": "/uploads/mm_profilkep-58ab609bd859.webp",
+    "office": "/uploads/mm_profilkep-58ab609bd859.webp",
+    "share": "/uploads/mm_profilkep-58ab609bd859.webp"
   }
 }
