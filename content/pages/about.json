@@ -1,14 +1,14 @@
 {
   "seo": {
     "title": "Rólam",
-    "description": ""
+    "description": "Hazai és multinacionális vállalatoknál, nemzetközi ügyvédi irodáknál tapasztalatot szerzett budapesti ügyvéd, cég-, ingatlan-, polgári peres-, büntetőjogi és gyógyszerjogi területen."
   },
   "eyebrow": "Rólam",
   "title": "Ügyvéd, aki a vállalati oldalt is belülről ismeri",
   "lead": "Pályám első éveit ügyvédi irodákban töltöttem, majd több évig nemzetközi gyógyszeripari vállalatok jogi és compliance vezetői pozícióiban, később nemzetközi ügyvédi irodákban szereztem tapasztalatot számos jogterületen. Szakmai tapasztalatomat oktatói és publikációs tevékenységem során is kamatoztatom: gyógyszerjogi témában akkreditált továbbképzést tartok ügyvédek számára. Emellett a gyógyszerjog és a kapcsolódó jogterületek aktuális kérdéseiről szakmai írásaim, publikációim is megjelentek.",
   "paragraphs": [
     "Ügyvédi irodákban, vállalati oldalon és magánszemélyek képviseletében szerzett tapasztalataim révén jól ismerem az eltérő ügyféligényeket és elvárásokat. Munkám során ezeket a különböző nézőpontokat ötvözve nyújtok személyre szabott, közérthető, gyakorlatias és megoldásorientált jogi tanácsadást.",
-    "Ügyfeleim között magánszemélyek, hazai kis- és középvállalkozások, valamint nemzetközi cégcsoportok magyar leányvállalatai szerepelnek. Bármely méretben ugyanazt vállalom: elérhető vagyok, érthetően fogalmazok, és a határidőket tartom."
+    "Ügyfeleim között magánszemélyek, hazai kis- és középvállalkozások, valamint nemzetközi cégcsoportok magyar leányvállalatai szerepelnek. Bármely méretben ugyanazt vállalom: elérhetőség, szakmai minőség, megbízhatóság."
   ],
   "values": [
     {
@@ -33,15 +33,15 @@
       },
       {
         "label": "Jogi diploma",
-        "detail": "ELTE Állam- és Jogtudományi Kar (minta)"
+        "detail": "Pécsi Tudományegyetem Állam-és Jogtudományi Kar"
       },
       {
         "label": "Szakvizsga",
-        "detail": "Jogi szakvizsga, 2023 (minta)"
+        "detail": "Jogi szakvizsga"
       },
       {
         "label": "Nyelvek",
-        "detail": "Magyar, angol (C1), német (C1)"
+        "detail": "Magyar, angol, német"
       }
     ]
   },
