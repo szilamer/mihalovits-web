@@ -48,38 +48,7 @@
   "career": {
     "eyebrow": "Szakmai út",
     "title": "Ügyvédi irodától a vállalati jogon át a saját praxisig",
-    "text": "Az alábbi állomások formálták azt a gyakorlatias, üzleti szemléletet, amellyel ma az ügyfeleimet képviselem.",
-    "items": [
-      {
-        "period": "2026 –",
-        "role": "Egyéni ügyvéd",
-        "org": "Saját praxis, Budapest",
-        "detail": "Ingatlanjog, társasági jog, life sciences, adatvédelem."
-      },
-      {
-        "period": "2025 – 2026",
-        "role": "Ügyvéd (Associate)",
-        "org": "Nemzetközi ügyvédi iroda, Budapest",
-        "detail": "Kereskedelmi jog, szabályozási és compliance-ügyek."
-      },
-      {
-        "period": "2024 – 2025",
-        "role": "Privacy & Compliance Officer",
-        "org": "Globális gyógyszeripari vállalat",
-        "detail": "Adatvédelmi program, belső vizsgálatok, hatósági kapcsolattartás."
-      },
-      {
-        "period": "2020 – 2024",
-        "role": "Legal Specialist",
-        "org": "Globális gyógyszeripari vállalat",
-        "detail": "Szerződések, promóciós megfelelőség, klinikai vizsgálatok."
-      },
-      {
-        "period": "2019 – 2020",
-        "role": "Ügyvédjelölt",
-        "org": "Budapesti ügyvédi iroda",
-        "detail": "Polgári jog, ingatlanjog, peres képviselet."
-      }
-    ]
+    "text": ".",
+    "items": []
   }
 }
