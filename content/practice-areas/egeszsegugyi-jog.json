@@ -3,7 +3,7 @@
   "title": "Gyógyszer- és egészségügyi jog",
   "shortTitle": "Egészségügyi jog",
   "eyebrow": "Life sciences",
-  "summary": "Gyógyszeripari és egészségügyi szolgáltatók szabályozási, reklám- és szerződéses kérdései – a Pfizernél és a GSK-nál szerzett belső tapasztalattal.",
+  "summary": "Gyógyszeripari és egészségügyi szolgáltatók szabályozási (regulatory), reklám- és szerződéses kérdései – in-house tapasztalattal.",
   "icon": "first-aid",
   "contactTopic": "Egészségügyi, gyógyszerjog, orvostechnikai eszközök és étrendkiegészítők",
   "intro": [
@@ -33,35 +33,35 @@
     },
     {
       "title": "Hatósági eljárások",
-      "description": "Képviselet az NNGYK és egyéb felügyeleti szervek előtti eljárásokban."
+      "description": "Képviselet az NNK, OGYI és egyéb felügyeleti szervek előtti eljárásokban."
     }
   ],
   "process": [
     {
       "step": "Szabályozási térkép",
-      "detail": "Az adott termékre vagy szolgáltatásra irányadó előírások összegzése."
+      "detail": "Az adott terméktípusra, forgalmazására és promóciójára irányadó jogszabályok, etikai szabályok áttekintése."
     },
     {
       "step": "Gap-elemzés",
       "detail": "A jelenlegi gyakorlat és a szabályozás közti eltérések azonosítása."
     },
     {
-      "step": "Megoldás",
-      "detail": "Szerződések, folyamatok, tréninganyagok kidolgozása."
+      "step": "Szervezetátalakítás, leépítés, bővülés",
+      "detail": "Vállalati szervezetátalakítási folyamatok teljes körű támogatása (Change Management, szervezetfejlesztési és compliance szakértők közreműködésével)."
     },
     {
-      "step": "Fenntartás",
-      "detail": "Jogszabályváltozások követése, rendszeres felülvizsgálat."
+      "step": "Megfelelés 24/7",
+      "detail": "Jogszabályváltozások követése, rendszeres felülvizsgálat, a teljes körű megfelelés elősegítése."
     }
   ],
   "faq": [
     {
       "q": "Kisebb magánrendelőnek is tud segíteni?",
-      "a": "Igen. Az egyszemélyes praxistól a több telephelyes klinikáig minden méretű szolgáltatóval dolgozom."
+      "a": "Igen. Az egyszemélyes praxistól a nagyobb kórházakig minden szolgáltatóval dolgozom."
     },
     {
-      "q": "Angol nyelvű anyavállalati egyeztetésben részt vesz?",
-      "a": "Természetesen – a nemzetközi csoportokkal való napi együttműködés a korábbi munkáim természetes része volt."
+      "q": "Angol nyelvű anyavállalati egyeztetésben is részt vesz?",
+      "a": "Természetesen – a nemzetközi csoportokkal való napi együttműködés a korábbi munkáim állandó része volt."
     }
   ]
 }
