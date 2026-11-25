@@ -20,6 +20,16 @@ if [[ -n "${PREVIEW_PASSWORD:-}" ]]; then
   (umask 077 && printf 'machine %s login elonezet password %s\n' "$host" "$PREVIEW_PASSWORD" > "$tmp/netrc")
   auth=(--netrc-file "$tmp/netrc")
 fi
+# Bash 3.2 (macOS) with `set -u` treats "${empty[@]}" as unbound, so authenticated
+# fetches go through here instead of expanding `auth` at every call site.
+authed() {
+  local name="$1"; shift
+  if [[ ${#auth[@]} -gt 0 ]]; then
+    fetch "$name" "${auth[@]}" "$@"
+  else
+    fetch "$name" "$@"
+  fi
+}
 
 fails=0
 pass() { printf '  ok    %s\n' "$1"; }
@@ -49,9 +59,10 @@ if [[ "$gate_status" == "401" ]]; then
 else
   echo "Preview gate: OFF"
   expect_status "anonymous /" 200 "$gate_status"
+  [[ -z "$(hdr anon x-robots-tag)" ]] && pass "anonymous / has no X-Robots-Tag" || fail "public pages still send X-Robots-Tag (got '$(hdr anon x-robots-tag)')"
 fi
 
-expect_status "/" 200 "$(fetch home "${auth[@]}" "$site/")"
+expect_status "/" 200 "$(authed home "$site/")"
 expect_header home content-security-policy "script-src 'self' 'sha256-"
 expect_header home content-security-policy "frame-ancestors 'none'"
 expect_header home strict-transport-security "includeSubDomains"
@@ -65,24 +76,24 @@ expect_header home cache-control "no-cache"
 
 asset="$(grep -oE '/_next/static/[^"]+\.js' "$tmp/home.b" | head -1)"
 if [[ -n "$asset" ]]; then
-  expect_status "static asset" 200 "$(fetch asset "${auth[@]}" "$site$asset")"
+  expect_status "static asset" 200 "$(authed asset "$site$asset")"
   expect_header asset cache-control "max-age=31536000"
 else
   fail "no /_next/static script found in the home page"
 fi
 
 for page in rolam kapcsolat szakteruletek szakteruletek/ingatlanjog adatkezeles impresszum; do
-  expect_status "/$page/" 200 "$(fetch page "${auth[@]}" "$site/$page/")"
+  expect_status "/$page/" 200 "$(authed page "$site/$page/")"
 done
 
-expect_status "/rolam (no slash)" 301 "$(fetch slash "${auth[@]}" "$site/rolam")"
+expect_status "/rolam (no slash)" 301 "$(authed slash "$site/rolam")"
 expect_header slash location "$site/rolam/"
 expect_status "www host" 301 "$(fetch www "https://www.$host/rolam/?q=1")"
 expect_header www location "$site/rolam/?q=1"
 expect_status "plain http" 301 "$(fetch http "http://$host/kapcsolat/")"
 expect_header http location "https://$host/kapcsolat/"
 
-expect_status "unknown page" 404 "$(fetch missing "${auth[@]}" "$site/nincs-ilyen-oldal/")"
+expect_status "unknown page" 404 "$(authed missing "$site/nincs-ilyen-oldal/")"
 grep -q "<html" "$tmp/missing.b" && pass "404 page is the site's own page" || fail "404 body is not the site's page"
 
 expect_status "ACME path without password" 404 "$(fetch acme "$site/.well-known/acme-challenge/smoke-test")"
@@ -139,10 +150,10 @@ fi
 if [[ -n "${GITHUB_ACTIONS:-}" && "${SMOKE_PROBES:-}" != 1 ]]; then
   echo "  SKIP  forbidden-path probes (they would trip the host's firewall; SMOKE_PROBES=1 forces them)"
 else
-  expect_status "/.htaccess" "403|404" "$(fetch dot1 "${auth[@]}" "$site/.htaccess")"
-  expect_status "/.git/config" "403|404" "$(fetch dot2 "${auth[@]}" "$site/.git/config")"
-  expect_status "backup file" 403 "$(fetch bak "${auth[@]}" "$site/contact.php.bak")"
-  expect_status "stray PHP" 403 "$(fetch php "${auth[@]}" "$site/info.php")"
+  expect_status "/.htaccess" "403|404" "$(authed dot1 "$site/.htaccess")"
+  expect_status "/.git/config" "403|404" "$(authed dot2 "$site/.git/config")"
+  expect_status "backup file" 403 "$(authed bak "$site/contact.php.bak")"
+  expect_status "stray PHP" 403 "$(authed php "$site/info.php")"
 fi
 
 echo "Failed checks: $fails"
