@@ -1,0 +1,28 @@
+{
+  "order": 7,
+  "title": "Büntetőjog",
+  "shortTitle": "Büntetőjog",
+  "eyebrow": "Büntetőjog",
+  "summary": "Büntetőjogi konzultáció és képviselet büntetőeljárásban.",
+  "icon": "buildings",
+  "contactTopic": "",
+  "intro": [
+    "Bárki lehet érintett büntetőügyben. Legyen felkészült, tájékozódjon jogairól, akár tanúként, akár gyanúsítottként, akár az eljárás más szereplőjeként kell részt vennie."
+  ],
+  "services": [
+    {
+      "title": "Konzultáció büntetőügyben",
+      "description": "Tanúként vagy gyanúsítottként idézik? Készüljön fel, egyeztessünk."
+    },
+    {
+      "title": "Képviselet büntetőeljárásban",
+      "description": "Teljes körű védelem ellátása, rendelkezésre állás és konzultáció mellett."
+    },
+    {
+      "title": "Nemzetközi büntetőügyek",
+      "description": "Európai elfogatóparancs, SIS jelzés, lefoglalt gépjármű? Egyeztessünk."
+    }
+  ],
+  "process": [],
+  "faq": []
+}
