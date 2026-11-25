@@ -7,8 +7,8 @@
   "icon": "briefcase",
   "contactTopic": "Cégügyek, cégalapítás, csőd, felszámolás, végelszámolás",
   "intro": [
-    "Több évet töltöttem multinacionális vállalatok belső jogi csapatában, ezért tudom, hogy egy vállalkozás nem jogi memorandumot, hanem működő megoldást vár.",
-    "A tanácsadás során az üzleti célt tartom szem előtt, és a kockázatokat úgy kezelem, hogy a döntéshozatal ne lassuljon le."
+    "Több évet töltöttem multinacionális vállalatok belső jogi csapatában, ezért tudom, hogy egy cég nem nehezen értelmezhető jogi állásfoglalásokat, hanem érthető, működő megoldási javaslatokat vár.",
+    "A tanácsadás során az üzleti célt a jogszabályi megfeleléssel együtt tartom szem előtt, megoldás-orientált javaslattal, üzleti szemlélettel segítem a vállalati működést."
   ],
   "services": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "title": "Szindikátusi szerződés",
-      "description": "Tulajdonosok közötti megállapodások, elővásárlási jogok, drag-along és tag-along klauzulák."
+      "description": "Tulajdonosok közötti megállapodások előkészítése és véleményezése."
     },
     {
       "title": "Kereskedelmi szerződések",
@@ -25,29 +25,29 @@
     },
     {
       "title": "Általános szerződési feltételek",
-      "description": "Webshopok és szolgáltatók ÁSZF-je, fogyasztóvédelmi megfelelőség."
+      "description": "Webshopok és szolgáltatók ÁSZF-je, fogyasztóvédelmi, adatvédelmi, versenyjogi megfelelőség."
     },
     {
       "title": "Compliance",
-      "description": "Belső szabályzatok, visszaélés-bejelentési rendszer, versenyjogi megfelelés."
+      "description": "Belső szabályzatok, visszaélés-bejelentési rendszer, a pénzmosás elleni jogszabályoknak való megfelelés."
     },
     {
       "title": "Átvilágítás (due diligence)",
-      "description": "Céges és ingatlanos átvilágítás akvizíciók, befektetések előtt."
+      "description": "Vállalati átvilágítás akvizíciók, befektetések előtt."
     }
   ],
   "process": [
     {
       "step": "Megismerés",
-      "detail": "Az üzleti modell és a döntési struktúra feltérképezése."
+      "detail": "Az üzleti modell és a döntési struktúra feltérképezése, a probléma átbeszélése."
     },
     {
       "step": "Kockázatelemzés",
-      "detail": "A jogi kockázatok rangsorolása üzleti hatás szerint."
+      "detail": "A jogi kockázatok és problémák feltárása, rangsorolása."
     },
     {
       "step": "Dokumentáció",
-      "detail": "Szerződések, szabályzatok elkészítése érthető, alkalmazható formában."
+      "detail": "Szerződések, szabályzatok, társasági jogi dokumentumok elkészítése érthető, alkalmazható formában."
     },
     {
       "step": "Támogatás",
@@ -57,11 +57,11 @@
   "faq": [
     {
       "q": "Vállal havidíjas jogi támogatást?",
-      "a": "Igen. Kis- és középvállalkozásoknak kiszámítható, óraalapú vagy fix havidíjas keretmegbízást ajánlok."
+      "a": "Igen. Kis- és középvállalkozásoknak, multinacionális vállalatoknak kiszámítható, óraalapú vagy fix havidíjas keretmegbízást ajánlok."
     },
     {
-      "q": "Mennyi idő egy cégalapítás?",
-      "a": "Egyszerűsített cégeljárásban az iratok aláírásától számítva jellemzően 1–3 munkanap."
+      "q": "Mennyi idő egy cégalapítási dokumentáció elkészítése?",
+      "a": "Amennyiben valamennyi információ rendelkezésre áll, jellemzően 1–3 munkanap."
     }
   ]
 }
