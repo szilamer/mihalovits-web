@@ -3,7 +3,7 @@
   "title": "Polgári jog, szerződések és peres képviselet",
   "shortTitle": "Polgári jog",
   "eyebrow": "Szerződések és jogviták",
-  "summary": "Szerződések szerkesztése és véleményezése, kártérítési igények, követeléskezelés, valamint képviselet peres és peren kívüli eljárásokban.",
+  "summary": "Szerződések szerkesztése és véleményezése, kártérítési igények, követeléskezelés, valamint képviselet peres és nemperes eljárásokban.",
   "icon": "scales",
   "contactTopic": "Polgári jog, gazdasági jog, peres eljárások",
   "intro": [
@@ -20,10 +20,10 @@
     },
     {
       "title": "Követeléskezelés",
-      "description": "Fizetési meghagyás, végrehajtás, felszámolási eljárásban való részvétel."
+      "description": "Fizetési meghagyásos, csőd, végrehajtás, felszámolási eljárásban való képviselet."
     },
     {
-      "title": "Peres képviselet",
+      "title": "Peres és választottbírósági képviselet",
       "description": "Képviselet bíróság előtt polgári és gazdasági perekben, valamint választottbírósági eljárásban."
     },
     {
@@ -38,7 +38,7 @@
   "process": [
     {
       "step": "Elemzés",
-      "detail": "Jogi álláspont és esélyek írásbeli értékelése."
+      "detail": "Jogi álláspont és lehetőségek előzetes egyeztetése, értékelése, perkockázat-felmérés."
     },
     {
       "step": "Felszólítás",
@@ -46,7 +46,7 @@
     },
     {
       "step": "Eljárás",
-      "detail": "Kereset, fizetési meghagyás vagy választottbírósági eljárás indítása."
+      "detail": "Kereset, fizetési meghagyás vagy választottbírósági eljárás kezdeményezése."
     },
     {
       "step": "Végrehajtás",
@@ -56,7 +56,7 @@
   "faq": [
     {
       "q": "Mekkora a pernyertesség esélye?",
-      "a": "Minden ügyben írásbeli kockázatértékelést készítek az első konzultáció után, mielőtt bármilyen eljárás indul."
+      "a": "Minden ügyben írásbeli kockázatértékelést készítünk az első konzultáció után, mielőtt bármilyen eljárás kezdeményezésére sor kerül."
     }
   ]
 }
