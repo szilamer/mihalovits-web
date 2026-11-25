@@ -7,13 +7,13 @@
   "icon": "shield-check",
   "contactTopic": "Adatvédelem, GDPR",
   "intro": [
-    "Adatvédelmi tisztviselőként dolgoztam egy nemzetközi gyógyszeripari vállalatnál, ahol napi szinten kellett a GDPR elvárásait a valós üzleti folyamatokra fordítanom.",
-    "Ezt a szemléletet hozom az ügyfeleimhez is: nem sablonokat adok, hanem az adott vállalkozás működésére szabott, védhető megoldásokat."
+    "Adatvédelmi tisztviselőként dolgoztam egy nemzetközi gyógyszeripari vállalatnál, ahol napi szinten kellett a GDPR elvárásait összhangba hoznom a mindennapi üzletmenetel.",
+    "Ezt a szemléletet hozom az ügyfeleimhez is: nem sablonokat adok, hanem az adott vállalkozás működésére szabott, alkalmazható, jogilag megbízható megoldásokat."
   ],
   "services": [
     {
       "title": "Adatkezelési tájékoztató és szabályzat",
-      "description": "Weboldalak, alkalmazások, HR-folyamatok teljes dokumentációja."
+      "description": "Weboldalak, alkalmazások, üzleti projektek, cégek, HR-folyamatok teljes adatkezelési dokumentációja."
     },
     {
       "title": "Adatvédelmi hatásvizsgálat (DPIA)",
@@ -21,10 +21,10 @@
     },
     {
       "title": "Incidenskezelés",
-      "description": "72 órás bejelentési kötelezettség kezelése, hatósági kommunikáció."
+      "description": "Bejelentési kötelezettség támogatása, hatósággal történő kommunikáció."
     },
     {
-      "title": "Adatfeldolgozói szerződések",
+      "title": "Adatkezeléssel összefüggő szerződések és egyéb dokumentumok",
       "description": "DPA-k, nemzetközi adattovábbítás, standard szerződési klauzulák."
     },
     {
@@ -38,12 +38,12 @@
   ],
   "process": [
     {
-      "step": "Adatleltár",
+      "step": "Adatkezelési tevékenységek feltérképezése",
       "detail": "Az adatkezelési folyamatok és jogalapok feltérképezése."
     },
     {
       "step": "Kockázatértékelés",
-      "detail": "Hiányosságok rangsorolása és cselekvési terv."
+      "detail": "Hiányosságok feltárása, rangsorolása és cselekvési terv."
     },
     {
       "step": "Dokumentáció",
@@ -56,12 +56,12 @@
   ],
   "faq": [
     {
-      "q": "Kötelező adatvédelmi tisztviselőt kijelölni?",
-      "a": "Csak meghatározott esetekben (pl. nagy léptékű különleges adatkezelés). Az első konzultáción ezt pontosan megvizsgáljuk."
+      "q": "Milyen szempontok figyelembevételével készül a GDPR-megfeleléssel kapcsolatos dokumentáció?",
+      "a": "A jogszabályok figyelembevétele mellett törekszünk az érthetőségre, az alkalmazhatóságra, az adott célnak megfelelő kialakításra."
     },
     {
       "q": "Mennyi idő egy teljes GDPR-megfelelési projekt?",
-      "a": "Kisvállalkozásnál jellemzően 3–6 hét, nagyobb szervezetnél a folyamatok számától függően 2–4 hónap."
+      "a": "A vállalkozás méretétől és tevékenységi köreitől függően változó, jellemzően 2-6 hét a teljes feltérképezéstől a végleges dokumentáció elkészítéséig."
     }
   ]
 }
