@@ -1,0 +1,84 @@
+# Web-server rules for mihalovits.eu (Apache 2.4 behind nginx, Magyar Hosting / WePanel).
+# Template: scripts/postbuild.mjs fills the script-src placeholder with the hashes of the
+# inline scripts Next.js emitted and keeps or strips the preview-gate block. The build
+# fails if a placeholder survives, so this file is never deployed half-filled.
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+AddDefaultCharset utf-8
+# The admin compiles its image encoders with WebAssembly.instantiateStreaming, which needs this type.
+AddType application/wasm .wasm
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Hidden and backup files are never served; ACME challenges must stay reachable.
+  RewriteRule (^|/)\.(?!well-known(/|$)) - [F]
+  RewriteRule \.(?:bak|old|orig|save|swp|sql|log|ini|sh|lock|dist)$ - [F,NC]
+
+  # Single canonical origin. HTTP->HTTPS is already enforced by the panel (nginx) in front of Apache.
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
+  RewriteRule ^ https://mihalovits.eu%{REQUEST_URI} [R=301,L,NE]
+
+  # Add the trailing slash ourselves: mod_dir only sees the proxied http:// request and would redirect there.
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^(.*[^/])$ https://mihalovits.eu/$1/ [R=301,L]
+</IfModule>
+
+# Only the known endpoints may execute PHP, even if a stray .php file ends up in the web root.
+<FilesMatch "\.(?:php[0-9]?|pht|phtml|phar|phps)$">
+  Require all denied
+</FilesMatch>
+<Files "contact.php">
+  Require all granted
+</Files>
+# The admin's sign-in window; the other files in /oauth/ are its libraries and command line.
+<Files "auth.php">
+  Require expr "%{REQUEST_URI} =~ m#^/oauth/auth\.php$#"
+</Files>
+<FilesMatch "^(?:error_log|php_errorlog)$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), browsing-topics=()"
+  Header always unset X-Powered-By
+  Header unset X-Powered-By
+
+  # The CMS keeps its GitHub token in the browser: it only talks to GitHub, and its sign-in popup
+  # must keep window.opener (same-origin-allow-popups). The OAuth pages send their own headers.
+  <If "%{REQUEST_URI} =~ m#^/admin/#">
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://avatars.githubusercontent.com; font-src 'self'; connect-src 'self' blob: data: https://api.github.com https://www.githubstatus.com; media-src 'self' blob:; frame-src 'self' blob:; worker-src 'self' blob:; manifest-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+    Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+    Header always set X-Robots-Tag "noindex, nofollow"
+  </If>
+  <ElseIf "%{REQUEST_URI} !~ m#^/oauth/#">
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-0PUp6on/HWF2TYcaRjA6OEmj0Ro3SVSaq6zVeAOQKz0=' 'sha256-BkllqyIjF68n6Xnl0PAiL1mKPAWQTn/IofsYDggXuF4=' 'sha256-DaFNmeWf9KIyi/EPdvJUmGsJnzIuSsOKKRY4zw9gETI=' 'sha256-FSQQDSsc9C6j/PhMaQUXPDTrwE97CGuk3yM5r81vXoc=' 'sha256-H4EDpjGcu3DMAO1uPKZXVPOwT2sOYLg4XhyE1jZ9DOE=' 'sha256-LBvgrMqtbbHcxY45cuhurww2ZaUqt9yhGV7UiAGMrWw=' 'sha256-OBTN3RiyCV4Bq7dFqZ5a2pAXjnCcCYeTJMO2I/LYKeo=' 'sha256-RCs+4Gob+NFYgteGJ+aJ8l0Mnxxz+KkgDE6iM0LoPdc=' 'sha256-VHooo9d6xGoPVhaPcwUmZZ65lYEO59R3bUwBNB8CZGw=' 'sha256-W7crT+jri3ea6I4DTfYATCEuEYc6eBb/s95F23IGb7E=' 'sha256-ZSwVAGG/4xAv9fF2pOyvvBpK8+0nMOFxWe8FQxrYHI8=' 'sha256-gJXAOgIbe596JDrJMbsVZwKNN2WiWJ5J9IY95p2qqBs=' 'sha256-jMUEJeShpqKoX4vIbyjL4wCIiZipMBh9oiaYbNSjABU=' 'sha256-mw/nRWfk5e0Fw1gzuuKf60mj8jXBsh7lWeglYf+7A3E=' 'sha256-rdVwQ6/kiP5FgEDCOThK/jy+IMIuiI2IcVnsBmPgKgw='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+  </ElseIf>
+
+  # Only reaches files Apache serves: nginx already sends max-age=31536000 for existing static files.
+  # Next.js detects stale RSC payloads (.txt) from an older build and falls back to a full page load.
+  <If "%{REQUEST_URI} =~ m#^/_next/static/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  <ElseIf "%{REQUEST_URI} =~ m#\.php$#">
+    Header set Cache-Control "no-store"
+  </ElseIf>
+  <ElseIf "%{REQUEST_URI} =~ m#(?:/|\.html|\.txt|\.xml|\.ya?ml)$#">
+    Header set Cache-Control "no-cache"
+  </ElseIf>
+  <Else>
+    Header set Cache-Control "public, max-age=604800"
+  </Else>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/javascript application/json application/xml image/svg+xml
+</IfModule>

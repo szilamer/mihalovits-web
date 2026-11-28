@@ -1,0 +1,7 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /oauth/
+
+Sitemap: https://mihalovits.eu/sitemap.xml
