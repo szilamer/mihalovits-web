@@ -16,8 +16,8 @@
     "Büntetőjog"
   ],
   "form": {
-    "successTitle": "Köszönöm, megkaptam az üzenetét.",
-    "successText": "Munkanapokon 24 órán belül jelentkezem a megadott e-mail címen vagy telefonszámon egy javasolt időponttal. Sürgős ügyben kérem, hívjon közvetlenül.",
+    "successTitle": "Köszönjük, megkaptuk az üzenetét.",
+    "successText": "Munkanapokon 24 órán belül jelentkezünk a megadott e-mail címen vagy telefonszámon egy javasolt időponttal. Sürgős ügyben kérjük, hívjon közvetlenül.",
     "responseNote": "Válasz munkanapokon 24 órán belül."
   }
 }
