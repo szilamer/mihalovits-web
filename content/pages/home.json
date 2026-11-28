@@ -98,34 +98,14 @@
     "note": "A vélemények bemutató célú mintaszövegek; a végleges oldalon az ügyfelek hozzájárulásával közölt, ellenőrizhető értékelések jelennek meg."
   },
   "faq": {
-    "eyebrow": "Gyakori kérdések",
+    "eyebrow": "Felkészülés",
     "title": "Amit az első megbeszélés előtt érdemes tudni",
-    "text": "Ha nem találja a választ, hívjon a {telefon} számon, vagy írjon – 24 órán belül válaszolunk.",
+    "text": "Hívjon a {telefon} számon, vagy írjon – 24 órán belül válaszolunk.",
     "cta": "Kérdést teszek fel",
     "items": [
       {
-        "q": "Mennyibe kerül az első konzultáció?",
-        "a": "Az első, 45–60 perces konzultáció díja a konkrét ügytől függ: a díjról mindig előzetes tájékoztatást adunk a konzultációt megelőzően."
-      },
-      {
-        "q": "Hogyan alakul az ügyvédi munkadíj?",
-        "a": "Az ügy típusától függően fix díjas (pl. adásvételi szerződés, cégalapítás) vagy óradíjas elszámolást alkalmazunk. A díjat minden esetben előre, írásban rögzítjük, és a megbízás során nincsenek rejtett költségek."
-      },
-      {
-        "q": "Lehet online intézni az ügyeket?",
-        "a": "Igen. A konzultáció videóhívásban is tartható, lehetőség van távellenjegyzésre, távazonosításra is. Külföldön élő ügyfeleink jelentős része teljesen online intézi ügyeit."
-      },
-      {
-        "q": "Milyen nyelveken dolgozik?",
-        "a": "Magyar, angol és német nyelven egyaránt vállalunk tanácsadást, okiratszerkesztést és tárgyalást – tolmács bevonása nélkül."
-      },
-      {
         "q": "Mit hozzak az első találkozóra?",
         "a": "Minden, az üggyel kapcsolatos dokumentumot (szerződések, levelezés, határozatok) érdemes elhozni vagy előre e-mailben elküldeni, így a konzultáción már konkrét javaslatokat tudunk adni."
-      },
-      {
-        "q": "Sürgős ügyben mennyire gyorsan érhető el?",
-        "a": "Munkanapokon 8 és 18 óra között telefonon közvetlenül elérhetőek vagyunk, sürgős esetben 4 órán belül visszahívjuk. Határidős ügyekben (pl. felmondás megtámadása) kérjük, jelezze ezt már az első üzenetben."
       }
     ]
   }
